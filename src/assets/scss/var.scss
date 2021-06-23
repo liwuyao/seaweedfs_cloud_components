@@ -1,0 +1,109 @@
+:root {
+  /* 默认字体 */
+  --font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Microsoft YaHei', '微软雅黑', Helvetica, sans-serif !important;
+
+  /* 字体大小 */
+  --font-size-xs: 12px;
+  --font-size-sm: 13px;
+  --font-size-base: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 20px;
+  --font-size-xl: 24px;
+  --font-size-xxl: 28px;
+  --font-size-xxxl: 32px;
+
+  /* 字体行高 */
+  --line-height-base: 1.5;
+  --line-height-compact: 1;
+  --line-height-baggy: 1.7;
+
+  /* 图标大小 */
+  --icon-size-xs: 12px;
+  --icon-size-sm: 14px;
+  --icon-size-base: 16px;
+  --icon-size-md: 20px;
+  --icon-size-lg: 28px;
+  --icon-size-xl: 32px;
+  --icon-size-xxl: 48px;
+  --icon-size-xxxl: 64px;
+
+  /* 颜色 */
+  --color-white: #FFF;
+  --color-black: #000;
+  --color-gray-100: #F7F7FA;
+  --color-gray-200: #F0F2F5;
+  --color-gray-300: #DBDDE0;
+  --color-gray-400: #C8CACD;
+  --color-gray-500: #BFBFBF;
+  --color-gray-600: #96989B;
+  --color-gray-700: #707275;
+  --color-gray-800: #4A4C4F;
+  --color-gray-900: #181A1D;
+  --color-blue: #2C7CEB;
+  --color-blue-lighten: #E6F6FF;
+  --color-blue-light: #3EA1FA;
+  --color-blue-dark: #005BD4;
+  --color-blue-darken: #052E82;
+  --color-red: #F93940;
+  --color-red-lighten: #FFF2EA;
+  --color-red-light: #FF766F;
+  --color-red-dark: #DB2E43;
+  --color-red-darken: #B70B20;
+  --color-yellow: #FF9000;
+  --color-yellow-lighten: #FFF8E5;
+  --color-yellow-light: #FFB53F;
+  --color-yellow-dark: #DB7200;
+  --color-yellow-darken: #A25502;
+  --color-green: #57D344;
+  --color-green-lighten: #ECFEDF;
+  --color-green-light: #8BE374;
+  --color-green-dark: #3AB333;
+  --color-green-darken: #208D1A;
+  --color-purple: #9A45E4;
+  --color-purple-lighten: #F9ECFE;
+  --color-purple-light: #BB71EE;
+  --color-purple-dark: #7A35C3;
+  --color-purple-darken: #531495;
+
+  /* 皮肤 */
+  --color-theme: #2680eb;
+  --color-theme-lighten: #FFF2EA;
+  --color-theme-light: #006dde;
+  --color-theme-dark: #B70B20;
+  --color-theme-darken: #9D041D;
+  --color-theme-text: var(--color-gray-800);
+  --color-theme-body: var(--color-white);
+  --color-theme-background: var(--color-gray-100);
+  --color-theme-header-bg: var(--color-white);
+  --color-theme-header-shadow: rgba(0,0,0,0.05);
+  --color-theme-header-text: var(--color-gray-800);
+  --color-theme-header-text-hover: var(--color-theme);
+  --color-theme-header-text-active: var(--color-gray-900);
+  --color-theme-header-icon: var(--color-gray-600);
+  --color-theme-header-select-border: var(--color-gray-400);
+  --color-theme-header-search-border: var(--color-gray-300);
+  --color-theme-header-search-border-active: var(--color-gray-900);
+  --color-theme-header-search-background: var(--color-gray-100);
+  --color-theme-router-background: #e9e9f7;
+  /* 间距单元 8px原则 */
+  --space-base: 8px;
+  --space-half: calc(var(--space-base) / 2);
+  --space-2x: calc(var(--space-base) * 2);
+  --space-3x: calc(var(--space-base) * 3);
+  --space-4x: calc(var(--space-base) * 4);
+  --space-5x: calc(var(--space-base) * 5);
+  --space-6x: calc(var(--space-base) * 6);
+  --space-7x: calc(var(--space-base) * 7);
+  --space-8x: calc(var(--space-base) * 8);
+  --space-9x: calc(var(--space-base) * 9);
+  --space-10x: calc(var(--space-base) * 10);
+
+  /* 框架尺寸 */
+  --header-height: 50px;
+  --header-line-height: var(--header-height);
+  --sidebar-width: 200px;
+  --sidebar-board-width: 900px;
+  /* 阴影*/
+  --shadow:0 2px 12px 0 rgba(0,0,0,10%);
+  --shadow-blue:0 2px 12px 0 rgba(0,109,222,10%);
+}

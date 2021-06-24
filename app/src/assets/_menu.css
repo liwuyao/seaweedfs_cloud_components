@@ -1,0 +1,153 @@
+.cloud-application-menu-content{
+	display: inline-block;
+	overflow: hidden;
+	transition: all 0.2s; 
+}
+.cloud-application-menu .iconfont{
+    width: 14px;
+}
+.cloud-application-menu .cloud-tree-menu{
+	width: 100%;
+}
+.cloud-application-menu .cloud-tree-menu .cloud-tree-menu-span{
+	
+}
+.cloud-application-menu .cloud-tree-menu .cloud-tree-menu-icon{
+	margin-right:12px;
+	margin-left: 10px;
+	font-size: 20px;
+}
+.cloud-application-menu .cloud-tree-menu .cloud-tree-menu-arrow{
+	font-style: normal;
+	font-size: 16px;
+	float: right;
+	margin-right:5px;
+	cursor: pointer;
+	transition: all 0.4s; 
+}
+.cloud-application-menu .cloud-application-menu-msg{
+	height: 40px;
+  display: flex;
+  align-items: center;
+	overflow: hidden;
+	transition: background-color 0.2s;
+	box-sizing: border-box;
+}
+.cloud-application-menu .cloud-application-menu-msg:hover{
+	background: rgba(0,0,0,0.04);
+	cursor: pointer;
+}
+.cloud-application-menu-msg{
+    display: flex;
+}
+.cloud-application-menu .cloud-application-menu-msg i{
+    font-size: 14px;
+}
+.cloud-application-menu-box{
+	transition: all 0.4s; 
+    overflow: hidden;
+    background: #f1f8ff;
+}
+.cloud-active-menu{
+	background: #538ee6 !important;
+}
+.cloud-menu-open{
+	transform: rotate(-180deg);
+}
+.cloud-application-menu-head{
+	box-sizing: border-box;
+	display: flex;
+	padding: 0 var(--space-2x);
+	height: var(--header-height);
+	align-items: center;
+	border-bottom: 1px solid var(--color-gray-200);
+	cursor: pointer;
+}
+
+.cloud-application-menu-head:hover{
+	background: var(--color-gray-100);
+	color: var(--color-theme);
+	border-color: var(--color-gray-300);
+}
+.cloud-application-menu-head-msg{
+	flex: 1;
+}
+.cloud-application-menu-head-msg i {
+	margin-right: var(--space-2x);
+}
+.cloud-application-menu-head > i {
+	font-size: var(--icon-size-xs);
+}
+.cloud-special-menu-container-box {
+	height: calc(100% - var(--header-height));
+	overflow: auto;
+	overflow-x: hidden;
+	scrollbar-width: thin;
+	padding: var(--space-base) 0;
+}
+.cloud-special-menu-container{
+	position: relative;
+}
+.cloud-special-menu-li{
+	width: 100%;
+	height: var(--space-5x);
+	line-height: var(--space-5x);
+	padding: 0 var(--space-2x);
+	cursor: pointer;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: absolute;
+	transition: all 0.4s;
+	box-sizing: border-box;
+}
+.cloud-special-menu-move{
+	cursor: move;
+	margin-left: var(--space-half);
+	display: inline-block;
+}
+.cloud-tree-menu-icon{
+	margin-right: var(--space-2x);
+	display: block;
+}
+.cloud-special-menu-msg-content{
+	flex: 1;
+	display: flex;
+}
+.cloud-special-menu-btn {
+	font-size: var(--icon-size-xs);
+	display: none;
+	vertical-align: middle;
+}
+.cloud-special-menu-text{
+	-moz-user-select:none; /* Firefox私有属性 */
+	-webkit-user-select:none; /* WebKit内核私有属性 */
+	-ms-user-select:none; /* IE私有属性(IE10及以后) */
+	-khtml-user-select:none; /* KHTML内核私有属性 */
+	-o-user-select:none; /* Opera私有属性 */
+	user-select:none; /* CSS3属性 */
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	display: block;
+	max-width: 100px;
+}
+.cloud-special-menu-li:hover {
+	background: var(--color-gray-100);
+	color: var(--color-theme);
+}
+.cloud-special-menu-li:hover .cloud-special-menu-btn {
+	display: inline-block;
+}
+.cloud-application-menu-content{
+	position: relative;
+	z-index: 2;
+	display: inline-block;
+	overflow: hidden;
+	transition: all 0.4s;
+	/* border-right: 1px solid #eee; */
+	background: #FFF;
+	/* box-shadow: 2px 0 3px rgba(0,0,0,0.25); */
+	height: 100%;
+}
+

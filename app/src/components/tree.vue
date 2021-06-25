@@ -5,10 +5,16 @@
 </template>
 
 <script>
-/*lwy-tree说明
-
-*/
-
+// Attributes
+// titleKey:用以指定表示标题的字段 默认 title
+// sizeKey:用以指定表示 大小的字段 默认 size
+// proportionKey:用以指定表示 占比的字段 默认 proportion
+// methods
+// choose:点击树后的回调方法，会回调当前点击的数据
+// Event
+// tree的事件挂载在实例的instance上，通过this.$refs获取，详见下面demo
+// create：创建树的时候调用，此方法需传入一个回调函数，会返回创建完成后生产的树数组，利用js对象的传递性，后续对数据的操作都在这个数组上，改变数组就是改变视图。用tree_list做一个记录
+// resetTree：用以更新tree的视图，数据更新后必须用此方法更新视图，不用树不会发生变化，详见demo。（开发此插件的时候是在vue2.0上，vue2.0对数据监听不够深，对dom的优化也欠佳，插件内置了一个自己开发的虚拟dom,所以需要如此手动更新，类似老版本的react)
 import { defineComponent } from "vue";
 import LwyTree from "./lwy-tree.js";
 export default defineComponent({
@@ -41,8 +47,9 @@ export default defineComponent({
         list: [],
         idKey: "id",
         container: "seaweedfs",
-        width: 1000,
-        choose: function (res) {//树选择回调，res当前菜单数据，e当前dom
+        width: 1200,
+        choose: function (res) {
+          //树选择回调，res当前菜单数据，e当前dom
           if(!res.menuState){
             _this.$emit('choose',res)
           }
@@ -108,6 +115,7 @@ export default defineComponent({
   font-size: 18px;
   transition: all 0.2s;
   height: 16px;
+  width: 18px;
   margin-top: 13px;
   cursor: pointer;
 }
@@ -150,6 +158,7 @@ export default defineComponent({
   justify-content: space-between;
 }
 .seaweedfs-msg-describe span{
-  margin-left: 10px;
+  display: inline-block;
+  width: 140px;
 }
 </style>

@@ -1,6 +1,5 @@
 .cloud-application-menu-content{
 	display: inline-block;
-	overflow: hidden;
 	transition: all 0.2s; 
 }
 .cloud-application-menu .iconfont{
@@ -143,11 +142,9 @@
 	position: relative;
 	z-index: 2;
 	display: inline-block;
-	overflow: hidden;
 	transition: all 0.4s;
 	/* border-right: 1px solid #eee; */
 	background: #FFF;
 	/* box-shadow: 2px 0 3px rgba(0,0,0,0.25); */
-	height: 100%;
 }
 

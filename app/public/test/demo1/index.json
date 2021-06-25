@@ -1,0 +1,10 @@
+{
+  "size_response": {
+    "directory": "/test/demo1",
+    "size": 22415961649,
+    "sizes": {
+      "demo1-1": 223900000,
+      "demo1-2": 2140
+    }
+  }
+}

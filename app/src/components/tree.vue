@@ -1,5 +1,5 @@
 <template>
-  <div class="seaweedfs-tree-box">
+  <div class="seaweedfs-tree-box" ref="treeBox">
     <div id="seaweedfs"></div>
   </div>
 </template>
@@ -43,11 +43,12 @@ export default defineComponent({
   mounted() {
     this.$nextTick(() => {
       let _this = this
+      let treeBoxWidth = this.$refs.treeBox.offsetWidth
       this.instance = new LwyTree({
         list: [],
         idKey: "id",
         container: "seaweedfs",
-        width: 1200,
+        width: treeBoxWidth - 50,
         choose: function (res) {
           //树选择回调，res当前菜单数据，e当前dom
           if(!res.menuState){

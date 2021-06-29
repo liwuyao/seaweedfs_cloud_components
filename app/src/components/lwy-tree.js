@@ -58,6 +58,7 @@ sugonTree.prototype.rendTree = function (list, hadRender) {
       }
     })
   }
+  
   function computeHeight(item, more) {
     if (!item.menuState) {
       item.height = 0
@@ -65,20 +66,23 @@ sugonTree.prototype.rendTree = function (list, hadRender) {
     if (item. menuState && !more) {
       if (item.children) {
         item.height = item.children.length * 40
-        let hadTrue = item.children.filter((ite) => ite. menuState)[0]
-        if (hadTrue) {
+        let hadTrue = item.children.filter((ite) => ite. menuState)
+        if (hadTrue.length) {
           computeHeight(item, hadTrue)
         }
       }
     }
     if (item. menuState && more) {
-      if (more.children) {
-        item.height = more.children.length * 40 + item.height
-        let hadTrue = more.children.filter((ite) => ite. menuState)[0]
-        if (hadTrue) {
-          computeHeight(item, hadTrue)
+      more.forEach((ele)=>{
+        if (ele.children) {
+          item.height = ele.children.length * 40 + item.height
+          // console.log(item.title,more)
+          let hadTrue = ele.children.filter((ite) => ite. menuState)
+          if (hadTrue.length){
+            computeHeight(item, hadTrue)
+          }
         }
-      }
+      })
     }
   }
   setHeight(list)
@@ -95,12 +99,11 @@ sugonTree.prototype.rendTree = function (list, hadRender) {
   function setTree(arr, source) {
     arr.forEach((item) => {
       const msgDom = [];
-      let iconStr = ''
+      let iconStr = 'icon-arrow-down-bold'
       if(item.menuState && !item.loading){
         iconStr = 'icon-arrow-down-bold tree-rotate'
       }
       if(!item.menuState && item.loading){
-        console.log('addd')
         iconStr = 'icon-loading loading-animation'
       }
       if(!item.menuState && !item.loading && !item.children){
@@ -111,7 +114,6 @@ sugonTree.prototype.rendTree = function (list, hadRender) {
           iconStr=""
         }
       }
-
       msgDom.push({
         type: "i",
         attr: {
@@ -140,13 +142,6 @@ sugonTree.prototype.rendTree = function (list, hadRender) {
             type: "click",
             fn: function (e) {
               e.stopPropagation();
-              if (item. menuState) {
-                item. menuState = false;
-                item.loading = false
-              } else {
-               // item. menuState = true;
-                item.loading = true
-              }
               //let not_need_false = [item]
               list.forEach(() => {
                 if (item.children) {
@@ -174,8 +169,14 @@ sugonTree.prototype.rendTree = function (list, hadRender) {
                   }
                 })
               }
-              _this.choose(item,e)
-              _this.rendTree(list, true)
+              if (item. menuState) {
+                item. menuState = false;
+                item.loading = false
+                _this.rendTree(list, true)
+              } else {
+                item.loading = true
+                _this.choose(item,e)
+              }
             }
           }
         ],

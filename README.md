@@ -1,11 +1,19 @@
 # Development
 
-## Setup Agent
+## Setup SeaweedFS cluster with Agent
 Run make to startup a docker cluster, 
 with a SeaweedFS cluster and an SeaweedFS agent.
 
 ```
 make
+```
+
+
+## Setup Agent to an existing SeaweedFS cluster
+
+```
+docker run -ti chrislusf/seaweed_agent:latest swagent -filer <filerHost>:<filerPort>
+
 ```
 
 

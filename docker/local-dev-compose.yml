@@ -1,0 +1,44 @@
+version: '2'
+
+services:
+  master:
+    image: chrislusf/seaweedfs:latest
+    ports:
+      - 9745:9745
+      - 19745:19745
+    command: "-v=0 master -ip=master -port=9745"
+  volume:
+    image: chrislusf/seaweedfs:latest
+    ports:
+      - 8111:8111
+      - 18111:18111
+    command: "-v=0 volume -mserver=master:9745 -port=8111 -ip=volume -preStopSeconds=1"
+    depends_on:
+      - master
+  filer:
+    image: chrislusf/seaweedfs:latest
+    ports:
+      - 8634:8634
+      - 18634:18634
+    command: '-v=0 filer -master="master:9745" -port=8634'
+    depends_on:
+      - master
+      - volume
+  mount:
+    image: chrislusf/seaweedfs:latest
+    privileged: true
+    cap_add:
+      - SYS_ADMIN
+    mem_limit: 4096m
+    command: '-v=0 mount -filer="filer:8634" -dirAutoCreate -dir=/mnt/seaweedfs -cacheCapacityMB=100 -concurrentWriters=128'
+    depends_on:
+      - master
+      - volume
+      - filer
+  agent:
+    image: chrislusf/seaweed_agent:latest
+    command: '/swagent -prod -filer=filer:8634'
+    depends_on:
+      - master
+      - volume
+      - filer

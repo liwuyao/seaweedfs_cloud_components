@@ -7,7 +7,7 @@
 <script>
 import { defineComponent } from "vue";
 import Tree from './tree.vue'
-
+import globalConfig from '../../global.config.js'
 export default defineComponent({
   components:{
     Tree
@@ -29,7 +29,7 @@ export default defineComponent({
         for(let i in data.sizes){
           let obj = {
             title:i,
-            path:data.directory + '/' + i,
+            path:globalConfig.dirPath+(data.directory === '/'?'':data.directory) + '/' + i,
             size:this.$filter.gbToSize(data.sizes[i]),
             proportion:Percentage(data.sizes[i],data.size) + '%'
           }
@@ -60,8 +60,8 @@ export default defineComponent({
           }
         */
         // let start_path = 'http://localhost:25683/cluster/WJ1IJCDQ2S8L314Y0LO4QA0EL92KT37V'
-        let start_path = `/test`
-        this.$axios.get(`${start_path}/index.json`).then((res)=>{
+        let start_path = globalConfig.dirPath
+        this.$axios.get(`${start_path}`).then((res)=>{
           let size_arr = this.transform_data(res.data.size_response)
           let start_obj = {
             title:'/',
@@ -79,9 +79,9 @@ export default defineComponent({
     },
     choose_tree(data) {
       /*data选择菜单的数据*/
-      data.loading = false
-      data.menuState = true
-      this.$axios.get(`${data.path}/index.json`).then((res)=>{
+      data.loading = true
+      this.$refs.Tree.instance.resetTree(this.tree_list);
+      this.$axios.get(`${data.path}`).then((res)=>{
         let size_arr = []
         try{
           size_arr = this.transform_data(res.data.size_response)
@@ -89,6 +89,12 @@ export default defineComponent({
           console.error(err)
         }
         data.children = size_arr
+        if(!size_arr.length){
+          data.menuState = false
+        }else{
+          data.menuState = true
+        }
+        data.loading = false
         /*resetTree 是树更新的唯一方法，每次改变数据后，必须执行此方法*/
         this.$refs.Tree.instance.resetTree(this.tree_list);
       }).catch((err)=>{

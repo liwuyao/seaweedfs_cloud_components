@@ -30,7 +30,7 @@ export default defineComponent({
   display: flex;
   align-items: center;
   height: 50px;
-  padding: 0 10px;
+  padding: 0 18px;
   color: white;
   font-size: 18px;
   background-color: red; /* 不支持线性的时候显示 */
@@ -46,5 +46,6 @@ export default defineComponent({
 }
 .name-text{
   margin-left: 10px;
+  color: #333;
 }
 </style>

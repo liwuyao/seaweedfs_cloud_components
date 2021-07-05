@@ -60,8 +60,8 @@ export default defineComponent({
           }
         */
         // let start_path = 'http://localhost:25683/cluster/WJ1IJCDQ2S8L314Y0LO4QA0EL92KT37V'
-        let start_path = `/test`
-        this.$axios.get(`${start_path}/index.json`).then((res)=>{
+        let start_path = `https://cloud.seaweedfs.com/cluster/XEQWRNERCYIS027CTPJHO76N0I4IGM01`
+        this.$axios.get(`${start_path}/`).then((res)=>{
           let size_arr = this.transform_data(res.data.size_response)
           let start_obj = {
             title:'/',

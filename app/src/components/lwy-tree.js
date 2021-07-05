@@ -104,7 +104,7 @@ sugonTree.prototype.rendTree = function (list, hadRender) {
         iconStr = 'icon-arrow-down-bold tree-rotate'
       }
       if(!item.menuState && item.loading){
-        iconStr = 'icon-loading loading-animation'
+        iconStr = 'el-icon-loading'
       }
       if(!item.menuState && !item.loading && !item.children){
         iconStr = 'icon-arrow-down-bold'
@@ -112,6 +112,11 @@ sugonTree.prototype.rendTree = function (list, hadRender) {
       if(!item.menuState && !item.loading && item.children){
         if(!item.children.length){
           iconStr=""
+        }
+      }
+      if(item.children){
+        if(!item.children.length){
+          iconStr = ""
         }
       }
       msgDom.push({

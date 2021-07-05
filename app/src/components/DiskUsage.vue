@@ -1,20 +1,27 @@
 <template>
-  <div>
-    <Tree ref="Tree" @choose="choose_tree" titleKey="title" sizeKey="size" proportionKey="proportion"/>
+  <div style="padding:0 5px">
+    <app-container :bread="[{name:'首页',path:'/'}]">
+      <div v-loading="loading" class="tree-box">
+        <Tree ref="Tree" @choose="choose_tree" titleKey="title" sizeKey="size" proportionKey="proportion"/>
+      </div>
+    </app-container>
   </div>
 </template>
 
 <script>
 import { defineComponent } from "vue";
 import Tree from './tree.vue'
-
+import globalConfig from '../../global.config.js'
+import AppContainer from './app-container.vue'
 export default defineComponent({
   components:{
-    Tree
+    Tree,
+    AppContainer
   },
   data(){
     return{
-      tree_list:[]
+      tree_list:[],
+      loading:false
     }
   },
   mounted(){
@@ -29,7 +36,7 @@ export default defineComponent({
         for(let i in data.sizes){
           let obj = {
             title:i,
-            path:data.directory + '/' + i,
+            path:globalConfig.dirPath+(data.directory === '/'?'':data.directory) + '/' + i,
             size:this.$filter.gbToSize(data.sizes[i]),
             proportion:Percentage(data.sizes[i],data.size) + '%'
           }
@@ -48,40 +55,43 @@ export default defineComponent({
     },
     start_getting_tree_list() {//菜单初始化数据
       let _this = this;
-      setTimeout(() => {
-        /*
-          {
-            title:''，//标题
-            id:'', //标题
-            children:[],//子集
-            menuState:'',//展开状态
-            isActive:'',//是否当前选中
-            loading:'',//加载中
-          }
-        */
-        // let start_path = 'http://localhost:25683/cluster/WJ1IJCDQ2S8L314Y0LO4QA0EL92KT37V'
-        let start_path = `https://cloud.seaweedfs.com/cluster/XEQWRNERCYIS027CTPJHO76N0I4IGM01`
-        this.$axios.get(`${start_path}/`).then((res)=>{
-          let size_arr = this.transform_data(res.data.size_response)
-          let start_obj = {
-            title:'/',
-            path:start_path,
-            size:this.$filter.gbToSize(res.data.size_response.size),
-            proportion:'100%',
-            children:size_arr
-          }
-          this.$refs.Tree.instance.create([start_obj], function (list) {//这一步必填
-            /*记录下树的数据 此数据是插件构建完成后的数据，此后的数据操作都在此数据上,改变数据后执行resetTree，参考choose_tree方法*/
-            _this.tree_list = list;
-          });
-        })
-      });
+      this.loading = true
+      /*
+        {
+          title:''，//标题
+          id:'', //标题
+          children:[],//子集
+          menuState:'',//展开状态
+          isActive:'',//是否当前选中
+          loading:'',//加载中
+        }
+      */
+      // let start_path = 'http://localhost:25683/cluster/WJ1IJCDQ2S8L314Y0LO4QA0EL92KT37V'
+      let start_path = globalConfig.dirPath
+      this.$axios.get(`${start_path}`).then((res)=>{
+        this.loading = false
+        let size_arr = this.transform_data(res.data.size_response)
+        let start_obj = {
+          title:'/',
+          path:start_path,
+          size:this.$filter.gbToSize(res.data.size_response.size),
+          proportion:'100%',
+          children:size_arr
+        }
+        this.$refs.Tree.instance.create([start_obj], function (list) {//这一步必填
+          /*记录下树的数据 此数据是插件构建完成后的数据，此后的数据操作都在此数据上,改变数据后执行resetTree，参考choose_tree方法*/
+          _this.tree_list = list;
+        });
+      }).catch((err)=>{
+        console.log(err)
+        this.loading = false
+      })
     },
     choose_tree(data) {
       /*data选择菜单的数据*/
-      data.loading = false
-      data.menuState = true
-      this.$axios.get(`${data.path}/index.json`).then((res)=>{
+      data.loading = true
+      this.$refs.Tree.instance.resetTree(this.tree_list);
+      this.$axios.get(`${data.path}`).then((res)=>{
         let size_arr = []
         try{
           size_arr = this.transform_data(res.data.size_response)
@@ -89,6 +99,12 @@ export default defineComponent({
           console.error(err)
         }
         data.children = size_arr
+        if(!size_arr.length){
+          data.menuState = false
+        }else{
+          data.menuState = true
+        }
+        data.loading = false
         /*resetTree 是树更新的唯一方法，每次改变数据后，必须执行此方法*/
         this.$refs.Tree.instance.resetTree(this.tree_list);
       }).catch((err)=>{
@@ -104,5 +120,8 @@ export default defineComponent({
 </script>
 
 <style>
-
+.tree-box{
+  width: 100%;
+  min-height: 300px;
+}
 </style>

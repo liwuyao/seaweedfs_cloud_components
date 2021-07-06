@@ -81,13 +81,13 @@ export default defineComponent({
                   {
                     type: "span",
                     attr: {
-                      innerText: `大小：${item[_this.sizeKey]}`,
+                      innerText: `size：${item[_this.sizeKey]}`,
                     },
                   },
                   {
                     type: "span",
                     attr: {
-                      innerText: `占比：${item[_this.proportionKey]}`,
+                      innerText: `percent：${item[_this.proportionKey]}`,
                     },
                   },
                 ],
@@ -105,6 +105,9 @@ export default defineComponent({
 </script>
 
 <style>
+#seaweedfs{
+  width:100%
+}
 .seaweedfs-tree-box{
   width: 100%;
   display: flex;

@@ -192,7 +192,7 @@ sugonTree.prototype.rendTree = function (list, hadRender) {
               class: `cloud-application-menu-msg ${item.isActive?'menu-active':''}`,
               style: {
                 paddingLeft: item.count ? 18 * (item.count - 1) + "px" : 0,
-                width: _this.width - (item.count ? 18 * (item.count - 1):0) + 'px'
+                width:'calc(100% - '+ (item.count ? 18 * (item.count - 1):0) + 'px'+')'
               }
             },
             children: msgDom

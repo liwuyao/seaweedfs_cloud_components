@@ -1,6 +1,6 @@
 <template>
   <header class="app-top-header">
-      <el-input v-model="input" placeholder="请输入内容" size="mini" style="width:240px">
+      <el-input v-model="input" placeholder="search" size="mini" style="width:240px">
         <template #append>
           <el-button icon="el-icon-search"></el-button>
         </template>

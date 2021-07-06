@@ -139,6 +139,7 @@
 	display: inline-block;
 }
 .cloud-application-menu-content{
+	width: 100%;
 	position: relative;
 	z-index: 2;
 	display: inline-block;

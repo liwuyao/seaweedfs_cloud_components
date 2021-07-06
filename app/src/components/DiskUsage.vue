@@ -1,6 +1,6 @@
 <template>
   <div style="padding:0 5px">
-    <app-container :bread="[{name:'首页',path:'/'}]">
+    <app-container :bread="[{name:'dashboard',path:'/'}]">
       <div v-loading="loading" class="tree-box">
         <Tree ref="Tree" @choose="choose_tree" titleKey="title" sizeKey="size" proportionKey="proportion"/>
       </div>
@@ -21,7 +21,8 @@ export default defineComponent({
   data(){
     return{
       tree_list:[],
-      loading:false
+      loading:false,
+      first_size:0
     }
   },
   mounted(){
@@ -31,25 +32,26 @@ export default defineComponent({
   },
   methods:{
     transform_data(data){
+      let _this = this
       let arr = []
       try{
         for(let i in data.sizes){
           let obj = {
             title:i,
             path:globalConfig.dirPath+(data.directory === '/'?'':data.directory) + '/' + i,
-            size:this.$filter.gbToSize(data.sizes[i]),
-            proportion:Percentage(data.sizes[i],data.size) + '%'
+            size:data.sizes[i]+'bt',
+            proportion:Percentage(data.sizes[i]) + '%'
           }
           arr.push(obj)
         }
       }catch(err){
         console.error(err)
       }
-      function Percentage(num, total) { 
-          if (num == 0 || total == 0){
+      function Percentage(num) { 
+          if (num == 0){
               return 0;
           }
-          return (Math.round(num / total * 10000) / 100.00);// 小数点后两位百分比
+          return (Math.round(num / _this.first_size * 10000) / 100.00);// 小数点后两位百分比
       }
       return arr
     },
@@ -70,13 +72,17 @@ export default defineComponent({
       let start_path = globalConfig.dirPath
       this.$axios.get(`${start_path}`).then((res)=>{
         this.loading = false
+        this.first_size = res.data.size_response.size
         let size_arr = this.transform_data(res.data.size_response)
         let start_obj = {
           title:'/',
           path:start_path,
-          size:this.$filter.gbToSize(res.data.size_response.size),
+          size:res.data.size_response.size + 'bt',
           proportion:'100%',
           children:size_arr
+        }
+        if(size_arr.length){
+          start_obj.menuState = true
         }
         this.$refs.Tree.instance.create([start_obj], function (list) {//这一步必填
           /*记录下树的数据 此数据是插件构建完成后的数据，此后的数据操作都在此数据上,改变数据后执行resetTree，参考choose_tree方法*/

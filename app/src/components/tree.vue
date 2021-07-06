@@ -81,13 +81,13 @@ export default defineComponent({
                   {
                     type: "span",
                     attr: {
-                      innerText: `size：${item[_this.sizeKey]}`,
+                      innerText: `${item[_this.sizeKey]}`,
                     },
                   },
                   {
                     type: "span",
                     attr: {
-                      innerText: `percent：${item[_this.proportionKey]}`,
+                      innerText: `${item[_this.proportionKey]}`,
                     },
                   },
                 ],
@@ -164,5 +164,6 @@ export default defineComponent({
 .seaweedfs-msg-describe span{
   display: inline-block;
   width: 140px;
+  text-align: right;
 }
 </style>

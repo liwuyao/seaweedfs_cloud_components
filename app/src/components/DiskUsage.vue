@@ -39,7 +39,7 @@ export default defineComponent({
           let obj = {
             title:i,
             path:globalConfig.dirPath+(data.directory === '/'?'':data.directory) + '/' + i,
-            size:data.sizes[i]+'bt',
+            size:this.$filter.sizeToText(data.sizes[i]),
             proportion:Percentage(data.sizes[i]) + '%'
           }
           arr.push(obj)
@@ -77,7 +77,7 @@ export default defineComponent({
         let start_obj = {
           title:'/',
           path:start_path,
-          size:res.data.size_response.size + 'bt',
+          size:this.$filter.sizeToText(res.data.size_response.size),
           proportion:'100%',
           children:size_arr
         }

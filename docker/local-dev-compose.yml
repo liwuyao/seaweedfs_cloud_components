@@ -36,7 +36,7 @@ services:
       - volume
       - filer
   agent:
-    image: chrislusf/seaweed_agent:latest
+    image: chrislusf/seaweed_agent:0.01
     command: 'swagent -filer=filer:8634'
     depends_on:
       - master

@@ -68,7 +68,6 @@ export default defineComponent({
           loading:'',//加载中
         }
       */
-      // let start_path = 'http://localhost:25683/cluster/WJ1IJCDQ2S8L314Y0LO4QA0EL92KT37V'
       let start_path = globalConfig.dirPath
       this.$axios.get(`${start_path}`).then((res)=>{
         this.loading = false

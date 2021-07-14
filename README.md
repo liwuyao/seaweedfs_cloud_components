@@ -5,6 +5,10 @@
 ```
 docker run -ti chrislusf/seaweed_agent:latest swagent -filer <filerHost>:<filerPort>
 
+Or use a specific version:
+
+docker run -ti chrislusf/seaweed_agent:0.01 swagent -filer <filerHost>:<filerPort>
+
 ```
 
 ## Setup SeaweedFS cluster with Agent

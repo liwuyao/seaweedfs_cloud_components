@@ -38,8 +38,8 @@ export default defineComponent({
         for(let i in data.sizes){
           let obj = {
             title:i,
-            path:globalConfig.dirPath+(data.directory === '/'?'':data.directory) + '/' + i,
-            size:data.sizes[i]+'bt',
+            path:globalConfig.dirPath+'/sizes'+(data.directory === '/'?'':data.directory) + '/' + i,
+            size:this.$filter.sizeToText(data.sizes[i]),
             proportion:Percentage(data.sizes[i]) + '%'
           }
           arr.push(obj)
@@ -68,7 +68,8 @@ export default defineComponent({
           loading:'',//加载中
         }
       */
-      let start_path = globalConfig.dirPath
+      // let start_path = 'http://localhost:25683/cluster/WJ1IJCDQ2S8L314Y0LO4QA0EL92KT37V'
+      let start_path = globalConfig.dirPath+'/sizes'
       this.$axios.get(`${start_path}`).then((res)=>{
         this.loading = false
         this.first_size = res.data.size_response.size
@@ -76,7 +77,7 @@ export default defineComponent({
         let start_obj = {
           title:'/',
           path:start_path,
-          size:res.data.size_response.size + 'bt',
+          size:this.$filter.sizeToText(res.data.size_response.size),
           proportion:'100%',
           children:size_arr
         }

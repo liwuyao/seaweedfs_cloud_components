@@ -6,10 +6,10 @@ const router = createRouter({
   routes:[
     {
       path:'/',
-      redirect:`/${localStorage.clusterId?localStorage.clusterId:'error'}`,
+      redirect:`/${localStorage.clusterId?'cluster/'+localStorage.clusterId:'error'}`,
     },
     {
-      path:`/${localStorage.clusterId}`,
+      path:`/cluster/${localStorage.clusterId}`,
       name:'DiskUsage',
       component:DiskUsage
     },

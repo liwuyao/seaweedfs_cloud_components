@@ -7,7 +7,7 @@ docker run -ti chrislusf/seaweed_agent:latest swagent -filer <filerHost>:<filerP
 
 Or use a specific version:
 
-docker run -ti chrislusf/seaweed_agent:0.01 swagent -filer <filerHost>:<filerPort>
+docker run -ti chrislusf/seaweed_agent:v0.0.2 swagent -filer <filerHost>:<filerPort>
 
 ```
 

@@ -1,4 +1,4 @@
 
 export default{
-    dirPath:`/api/cluster/${localStorage.clusterId}`
+    dirPath:`/cluster/${localStorage.clusterId}`
 }

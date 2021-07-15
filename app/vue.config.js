@@ -1,11 +1,11 @@
 module.exports = {
     devServer: {
         proxy:{
-            '/api': {
-                target: 'https://cloud.seaweedfs.com/',
+            '/cluster': {
+                target: 'https://cloud.seaweedfs.com/cluster',
                 changeOrigin: true,
                 pathRewrite: {
-                '^/api': ''
+                '^/cluster': ''
                 }
             },
         }

@@ -8,6 +8,17 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
   <body>
+    <script>
+      const url = window.location.href
+      let pathArr = url.split('/')
+      let id = pathArr.filter((item)=>item.length === 32)[0]
+      let rule = /^[A-Za-z0-9]+$/
+      console.log(id,'2222')
+      if(id && rule.test(id)){
+          localStorage.clusterId = id
+          console.log(id)
+      }
+    </script>
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>

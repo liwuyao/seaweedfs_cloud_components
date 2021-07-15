@@ -1,4 +1,4 @@
-let url = process.env.NODE_ENV === 'development'?`/api/cluster/OIRALFFFRI61FN6LOY3S0R7FO7FC3C5A`:`/cluster/${localStorage.clusterId}`
+let url = process.env.NODE_ENV === 'development'?`/api/cluster/T151MC38YHTXW7HXDMZ86L47Q5IB9CBT`:`/cluster/${localStorage.clusterId}`
 export default{
     dirPath:url
 }

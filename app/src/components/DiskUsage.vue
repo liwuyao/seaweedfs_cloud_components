@@ -11,12 +11,9 @@
 <script>
 import { defineComponent } from "vue";
 import Tree from './tree.vue'
-import globalConfig from '../../global.config.js'
-import AppContainer from './app-container.vue'
 export default defineComponent({
   components:{
-    Tree,
-    AppContainer
+    Tree
   },
   data(){
     return{
@@ -38,7 +35,7 @@ export default defineComponent({
         for(let i in data.sizes){
           let obj = {
             title:i,
-            path:globalConfig.dirPath+'/sizes'+(data.directory === '/'?'':data.directory) + '/' + i,
+            path:this.$globalConfig.dirPath+'/sizes'+(data.directory === '/'?'':data.directory) + '/' + i,
             size:this.$filter.sizeToText(data.sizes[i]),
             proportion:Percentage(data.sizes[i]) + '%'
           }
@@ -69,7 +66,7 @@ export default defineComponent({
         }
       */
       // let start_path = 'http://localhost:25683/cluster/WJ1IJCDQ2S8L314Y0LO4QA0EL92KT37V'
-      let start_path = globalConfig.dirPath+'/sizes'
+      let start_path = this.$globalConfig.dirPath+'/sizes'
       this.$axios.get(`${start_path}`).then((res)=>{
         this.loading = false
         this.first_size = res.data.size_response.size

@@ -79,6 +79,13 @@ export default defineComponent({
                 },
                 children: [
                   {
+                    type:'button',
+                    attr:{
+                      innerText:'quota',
+                      className:'quota-button'
+                    }
+                  },
+                  {
                     type: "span",
                     attr: {
                       innerText: `${item[_this.sizeKey]}`,

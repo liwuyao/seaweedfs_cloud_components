@@ -54,17 +54,21 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+const url = `ui/${localStorage.clusterId}`
 export default defineComponent({
     data(){
         return{
           activeIndex:'/',
           menus:[
               {
-                  path:'/',
+                  index:`/${url}/dashboard`,
                   name:'dashboard'
               }
           ]
         }
+    },
+    created(){
+      console.log(this.menus)
     }
 })
 </script>

@@ -8,6 +8,7 @@ import 'element-plus/lib/theme-chalk/index.css';
 import Axios from './http/axios'
 import router from './router/index.js'
 import filter from './filter/index.js'
+import Plugin from './plugin/index.js'
 
 const url = window.location.href
 let pathArr = url.split('/')
@@ -16,5 +17,5 @@ let rule = /^[A-Za-z0-9]+$/
 if(id && rule.test(id)){
     localStorage.clusterId = id
 }
-createApp(App).use(Axios).use(router).use(filter).use(ElementPlus).mount('#app')
+createApp(App).use(Axios).use(router).use(filter).use(ElementPlus).use(Plugin).mount('#app')
 

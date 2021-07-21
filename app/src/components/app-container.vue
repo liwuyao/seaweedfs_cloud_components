@@ -37,10 +37,11 @@ export default {
   display: block;
 }
 .app-container-box{
-  width: 100%;
+  width: calc(100% - 10px);
   padding: 10px 20px 0;
   background:white;
   box-sizing: border-box;
   overflow: hidden;
+  margin-left: 10px;
 }
 </style>

@@ -61,7 +61,7 @@ export default defineComponent({
           activeIndex:'/',
           menus:[
               {
-                  index:`/${url}/dashboard`,
+                  index:`/${url}`,
                   name:'dashboard'
               }
           ]

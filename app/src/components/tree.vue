@@ -83,7 +83,19 @@ export default defineComponent({
                     attr:{
                       innerText:'quota',
                       className:'quota-button'
-                    }
+                    },
+                    event:[
+                      {
+                        type:'click',
+                        fn:function(e){
+                          e.stopPropagation()
+                          let index = item.path.split(`${localStorage.clusterId}/sizes`)[1]
+                          console.log(index)
+                          let url = `/ui/${localStorage.clusterId}/quota?path=` + index
+                          _this.$router.push(url)
+                        }
+                      }
+                    ]
                   },
                   {
                     type: "span",

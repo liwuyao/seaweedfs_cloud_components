@@ -5,7 +5,7 @@
           <el-button size="small" type="primary">
             <i class="el-icon-refresh-right"></i>
           </el-button>
-           <el-button size="small" type="primary" icon="el-icon-plus">
+           <el-button size="small" type="primary" icon="el-icon-plus" @click="open_dialog('add')">
             New
           </el-button>
         </li>
@@ -75,16 +75,29 @@ export default {
     })
   },
   methods:{
+    open_dialog(type){
+      switch(type){
+        case 'add':
+          this.quotaForm = {
+          directory:'',
+          size:0,
+          is_for_children:false
+        }
+        break
+      }
+      this.dialogVisible = true
+    },
     get_quota(){
-      this.$axios.get(`${this.$globalConfig.dirPath}/quotas`).then((res)=>{
+      this.$axios.get(`${this.$globalConfig.dirPath}/quotas/asdf`).then((res)=>{
         console.log(res)
       })
     },
     new_quota(){
       this.confirm_loading = true
-      this.$axios.post(`${this.$globalConfig.dirPath}/quotas/buckets/bucket1`,this.quotaForm).then((res)=>{
-        console.log(res.data,'添加成功')
+      this.$axios.post(`${this.$globalConfig.dirPath}/quotas${this.$route.query.path}`,this.quotaForm).then(()=>{
+        this.get_quota()
         this.confirm_loading = false
+        this.dialogVisible = false
       }).catch((err)=>{
         console.log(err)
         this.confirm_loading = false

@@ -88,7 +88,7 @@ export default {
       this.dialogVisible = true
     },
     get_quota(){
-      this.$axios.get(`${this.$globalConfig.dirPath}/quotas/asdf`).then((res)=>{
+      this.$axios.get(`${this.$globalConfig.dirPath}/quotas`).then((res)=>{
         console.log(res)
       })
     },

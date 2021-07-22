@@ -2,8 +2,8 @@
   <app-container :bread="[{name:'quota',path:'/'}]">
       <ul class="header-handle">
         <li>
-          <el-button size="small" type="primary">
-            <i class="el-icon-refresh-right"></i>
+          <el-button size="small" type="primary" @click="get_quota">
+            <i class="el-icon-refresh-right" :class="{'loading-animation':table_loading}"></i>
           </el-button>
            <el-button size="small" type="primary" icon="el-icon-plus" @click="open_dialog('add')">
             New
@@ -12,20 +12,25 @@
       </ul>
       <el-table
         :data="tableData"
+        v-loading="table_loading"
         style="width: 100%">
         <el-table-column
           prop="directory"
           label="directory"
-          width="180">
+        >
         </el-table-column>
         <el-table-column
           prop="size"
           label="size"
-          width="180">
+        >
         </el-table-column>
         <el-table-column
-          prop="handle"
-          label="size">
+          width="180"
+          label="handle">
+          <template #default="scope">
+            <i class="el-icon-time el-icon-delete delete-btn" @click="delete_row(scope.row)" title="delete"></i>
+            <i class="el-icon-edit modify-btn" title="modify"></i>
+          </template>
         </el-table-column>
       </el-table>
       <el-dialog
@@ -66,7 +71,8 @@ export default {
         is_for_children:false
       },
       rules:{},
-      confirm_loading:false
+      confirm_loading:false,
+      table_loading:false
     }
   },
   mounted(){
@@ -75,6 +81,9 @@ export default {
     })
   },
   methods:{
+    delete_row(){
+
+    },
     open_dialog(type){
       switch(type){
         case 'add':
@@ -88,8 +97,21 @@ export default {
       this.dialogVisible = true
     },
     get_quota(){
+      this.table_loading = true
       this.$axios.get(`${this.$globalConfig.dirPath}/quotas/asdf`).then((res)=>{
-        console.log(res)
+        this.table_loading = false
+        let result = res.data.get_quota_rules_response.quota_rules.map((item)=>{
+          return {
+            directory:item.is_for_children?`${item.directory}/*`:item.directory,
+            size:item.size+'GB',
+
+          }
+        })
+        this.tableData = result
+      }).catch((err)=>{
+        console.log(err)
+        this.tableData = []
+        this.table_loading = false
       })
     },
     new_quota(){
@@ -114,5 +136,35 @@ export default {
 }
 .header-handle{
   padding-top: 20px;
+}
+.delete-btn{
+  color: red;
+  cursor: pointer;
+}
+.delete-btn:hover{
+  color: rgb(139, 3, 3);
+}
+.modify-btn{
+  color: #2680eb;
+  margin-left: 14px;
+  cursor: pointer;
+}
+.modify-btn:hover{
+  color: #174885;
+}
+.loading-animation{
+  animation:rotate 1s infinite linear;
+  -webkit-animation:rotate 1s infinite linear; 
+}
+@keyframes rotate
+{
+from {transform:rotate(0deg);}
+to {transform:rotate(360deg)}
+}
+
+@-webkit-keyframes rotate /*Safari and Chrome*/
+{
+from {transform:rotate(0deg);}
+to {transform:rotate(360deg)}
 }
 </style>

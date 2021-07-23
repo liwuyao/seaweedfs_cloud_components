@@ -91,7 +91,7 @@ export default defineComponent({
                           e.stopPropagation()
                           let index = item.path.split(`${localStorage.clusterId}/sizes`)[1]
                           console.log(index)
-                          let url = `/ui/${localStorage.clusterId}/quota?path=` + index
+                          let url = `/ui/${localStorage.clusterId}/quota`
                           _this.$router.push(url)
                         }
                       }

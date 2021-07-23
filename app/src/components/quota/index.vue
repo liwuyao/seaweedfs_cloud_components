@@ -1,9 +1,9 @@
 <template>
-  <app-container :bread="[{name:'quota',path:'/'}]">
+  <app-container :bread="[{name:'dashboard',index:default_url},{name:'quota',index:''}]">
       <ul class="header-handle">
         <li>
-          <el-button size="small" type="primary">
-            <i class="el-icon-refresh-right"></i>
+          <el-button size="small" type="primary" @click="get_quota">
+            <i class="el-icon-refresh-right" :class="{'loading-animation':table_loading}"></i>
           </el-button>
            <el-button size="small" type="primary" icon="el-icon-plus" @click="open_dialog('add')">
             New
@@ -12,20 +12,31 @@
       </ul>
       <el-table
         :data="tableData"
+        v-loading="table_loading"
         style="width: 100%">
         <el-table-column
           prop="directory"
           label="directory"
-          width="180">
+        >
+        <template #default="scope">
+          <span>{{trans_directory(scope.row)}}</span>
+        </template>
         </el-table-column>
         <el-table-column
           prop="size"
           label="size"
-          width="180">
+        >
+        <template #default="scope">
+          <span>{{scope.row.size}}GB</span>
+        </template>
         </el-table-column>
         <el-table-column
-          prop="handle"
-          label="size">
+          width="180"
+          label="handle">
+          <template #default="scope">
+            <i class="el-icon-time el-icon-delete delete-btn" @click="delete_row(scope.row)" title="delete"></i>
+            <i class="el-icon-edit modify-btn" title="modify" @click="open_dialog('modify',scope.row)"></i>
+          </template>
         </el-table-column>
       </el-table>
       <el-dialog
@@ -51,13 +62,32 @@
           </span>
         </template>
       </el-dialog>
+      <el-dialog
+        title="modify quota"
+        v-model="dialogVisible_modify"
+        width="600px"
+      >
+      <el-form :model="modifyForm" :rules="rules" label-width="80px" class="demo-quotaForm">
+        <el-form-item label="size" prop="size">
+          <el-input-number v-model="modifyForm.size" :min="1" :max="10" style="width:400px;margin-right:10px"></el-input-number>GB
+        </el-form-item>
+      </el-form>
+        <template #footer>
+          <span class="dialog-footer">
+            <el-button @click="dialogVisible_modify = false">cancel</el-button>
+            <el-button type="primary" :loading="confirm_loading" @click="new_quota('modify')">confirm</el-button>
+          </span>
+        </template>
+      </el-dialog>
   </app-container>
 </template>
 
 <script>
+const url = `/ui/${localStorage.clusterId}`
 export default {
   data(){
     return{
+      default_url:url,
       tableData:[],
       dialogVisible:false,
       quotaForm:{
@@ -66,7 +96,13 @@ export default {
         is_for_children:false
       },
       rules:{},
-      confirm_loading:false
+      confirm_loading:false,
+      table_loading:false,
+      dialogVisible_modify:false,
+      modifyForm:{
+        size:0
+      },
+      current_quota:''
     }
   },
   mounted(){
@@ -75,7 +111,30 @@ export default {
     })
   },
   methods:{
-    open_dialog(type){
+    delete_row(data){
+       this.$confirm('Are you sure to delete?', 'delete quota', {
+          confirmButtonText: 'confirm',
+          cancelButtonText: 'cancel',
+          type: 'warning'
+        }).then(() => {
+          this.$axios.delete(`${this.$globalConfig.dirPath}/quotas${data.directory}`).then(()=>{
+            this.$message({
+              type:'success',
+              message:'Delete succeeded !'
+            })
+            this.get_quota()
+          }).catch((err)=>{
+            console.log(err)
+            this.$message({
+              type:'error',
+              message:'Deletion failed !'
+            })
+          })
+        }).catch(()=>{
+          console.log('cancel')
+        })
+    },
+    open_dialog(type,data){
       switch(type){
         case 'add':
           this.quotaForm = {
@@ -83,21 +142,54 @@ export default {
           size:0,
           is_for_children:false
         }
+        this.dialogVisible = true
+        break
+        case 'modify':
+          this.current_quota = data
+          this.modifyForm.size = data.size
+          this.dialogVisible_modify = true
         break
       }
-      this.dialogVisible = true
+    },
+    trans_directory(data){
+      return data.is_for_children?`${data.directory}/*`:data.directory
     },
     get_quota(){
+      this.table_loading = true
       this.$axios.get(`${this.$globalConfig.dirPath}/quotas`).then((res)=>{
-        console.log(res)
+        this.table_loading = false
+        res.data.get_quota_rules_response.quota_rules = res.data.get_quota_rules_response.quota_rules?res.data.get_quota_rules_response.quota_rules:[]
+        let result = res.data.get_quota_rules_response.quota_rules.map((item)=>{
+          return {
+            directory:item.directory,
+            size:item.size,
+
+          }
+        })
+        this.tableData = result
+      }).catch((err)=>{
+        console.log(err)
+        this.tableData = []
+        this.table_loading = false
       })
     },
-    new_quota(){
+    new_quota(type){
       this.confirm_loading = true
-      this.$axios.post(`${this.$globalConfig.dirPath}/quotas${this.$route.query.path}`,this.quotaForm).then(()=>{
+      let send = this.quotaForm
+      let path = send.directory
+      if(type === 'modify'){
+        send = this.modifyForm
+        path = this.current_quota.directory
+      }
+      this.$axios.post(`${this.$globalConfig.dirPath}/quotas/${path}`,send).then(()=>{
         this.get_quota()
         this.confirm_loading = false
         this.dialogVisible = false
+        this.dialogVisible_modify = false
+        this.$message({
+          type:'success',
+          message:'success'
+        })
       }).catch((err)=>{
         console.log(err)
         this.confirm_loading = false
@@ -114,5 +206,35 @@ export default {
 }
 .header-handle{
   padding-top: 20px;
+}
+.delete-btn{
+  color: red;
+  cursor: pointer;
+}
+.delete-btn:hover{
+  color: rgb(139, 3, 3);
+}
+.modify-btn{
+  color: #2680eb;
+  margin-left: 14px;
+  cursor: pointer;
+}
+.modify-btn:hover{
+  color: #174885;
+}
+.loading-animation{
+  animation:rotate 1s infinite linear;
+  -webkit-animation:rotate 1s infinite linear; 
+}
+@keyframes rotate
+{
+from {transform:rotate(0deg);}
+to {transform:rotate(360deg)}
+}
+
+@-webkit-keyframes rotate /*Safari and Chrome*/
+{
+from {transform:rotate(0deg);}
+to {transform:rotate(360deg)}
 }
 </style>

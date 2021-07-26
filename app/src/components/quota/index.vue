@@ -1,5 +1,5 @@
 <template>
-  <app-container :bread="[{name:'dashboard',index:default_url},{name:'quota',index:''}]">
+  <app-container :bread="bread">
       <ul class="header-handle">
         <li>
           <el-button size="small" type="primary" @click="get_quota">
@@ -68,12 +68,15 @@
         v-model="dialogVisible_modify"
         width="600px"
       >
-      <el-form :model="modifyForm" :rules="rules" label-width="80px" class="demo-quotaForm">
+      <el-form :model="modifyForm" :rules="rules" label-width="130px" class="demo-quotaForm">
         <el-form-item label="directory">
           <p style="font-size:16px;color:#409EFF;font-weight:700">{{current_quota.directory}}</p>
         </el-form-item>
-        <el-form-item label="size" prop="size">
-          <el-input-number v-model="modifyForm.size" :min="1" :max="10" style="width:400px;margin-right:10px"></el-input-number>GB
+        <el-form-item label="size">
+          <el-input-number v-model="modifyForm.size" :min="1"  style="width:400px;margin-right:10px"></el-input-number>GB
+        </el-form-item>
+        <el-form-item label="apply to children">
+            <el-checkbox v-model="current_quota.is_for_children" :disabled="true"></el-checkbox>
         </el-form-item>
       </el-form>
         <template #footer>
@@ -119,8 +122,17 @@ export default {
         size:0
       },
       current_quota:'',
-      isCreate:false
+      isCreate:false,
+      bread:[],
     }
+  },
+  created() {
+    this.bread = [{name:'dashboard',index:this.default_url},{name:'quota',index:''}]
+    // if(this.$route.query.path){
+    //   this.bread = [{name:'dashboard',index:this.default_url},{name:'quota',index:''}]
+    // }else{
+    //   this.bread = [{name:'quota',index:''}]
+    // }
   },
   mounted(){
     this.$nextTick(()=>{
@@ -213,7 +225,7 @@ export default {
         send = this.modifyForm
         path = this.current_quota.directory
       }
-      this.$axios.post(`${this.$globalConfig.dirPath}/quotas/${path}`,send).then(()=>{
+      this.$axios.post(`${this.$globalConfig.dirPath}/quotas${path}`,send).then(()=>{
         this.get_quota()
         this.confirm_loading = false
         this.dialogVisible = false

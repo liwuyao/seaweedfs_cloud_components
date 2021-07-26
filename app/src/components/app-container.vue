@@ -3,7 +3,7 @@
     <div class="bread-box">
       <i class="line"></i>
       <el-breadcrumb-item v-for="(item,index) of bread" :key="index">
-        <a href="/" v-if="item.index">{{item.name}}</a>
+        <a @click="go(item.index)" v-if="item.index">{{item.name}}</a>
         <span v-else>{{item.name}}</span>
       </el-breadcrumb-item>
     </div>
@@ -17,6 +17,11 @@ export default {
     bread:{
       type:Array,
       default:()=>[]
+    }
+  },
+  methods:{
+    go(path){
+      this.$router.push(path)
     }
   }
 }
@@ -37,10 +42,11 @@ export default {
   display: block;
 }
 .app-container-box{
-  width: 100%;
+  width: calc(100% - 10px);
   padding: 10px 20px 0;
   background:white;
   box-sizing: border-box;
   overflow: hidden;
+  margin-left: 10px;
 }
 </style>

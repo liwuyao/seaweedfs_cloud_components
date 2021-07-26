@@ -42,6 +42,7 @@ export default defineComponent({
   },
   mounted() {
     this.$nextTick(() => {
+      document.getElementById('seaweedfs').innerHTML = ''
       let _this = this
       let treeBoxWidth = this.$refs.treeBox.offsetWidth
       this.instance = new LwyTree({
@@ -78,6 +79,24 @@ export default defineComponent({
                   class: "seaweedfs-msg-describe",
                 },
                 children: [
+                  {
+                    type:'button',
+                    attr:{
+                      innerText:'quota',
+                      className:'quota-button'
+                    },
+                    event:[
+                      {
+                        type:'click',
+                        fn:function(e){
+                          e.stopPropagation()
+                          let index = item.path.split(`${localStorage.clusterId}/sizes`)[1]
+                          let url = `/ui/${localStorage.clusterId}/quota?path=` + index
+                          _this.$router.push(url)
+                        }
+                      }
+                    ]
+                  },
                   {
                     type: "span",
                     attr: {

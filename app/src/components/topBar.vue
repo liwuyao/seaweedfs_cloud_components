@@ -1,10 +1,10 @@
 <template>
   <header class="app-top-header">
-      <el-input v-model="input" placeholder="search" size="mini" style="width:240px">
+      <!-- <el-input v-model="input" placeholder="search" size="mini" style="width:240px">
         <template #append>
           <el-button icon="el-icon-search"></el-button>
         </template>
-      </el-input>
+      </el-input> -->
       <div class="head-portrait"> 
           <el-avatar :size="30" :src="circleUrl"></el-avatar>
           <span class="name-text">name</span>

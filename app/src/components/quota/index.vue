@@ -87,7 +87,7 @@ const url = `/ui/${localStorage.clusterId}`
 export default {
   data(){
       var validate_directory = (rule, value, callback) => {
-        rule =   /^(([0-9a-zA-Z_]+)|([0-9a-zA-Z_]+\/[0-9a-zA-Z_]+))+$/
+        rule =   /^\/+(([0-9a-zA-Z_]+)|([0-9a-zA-Z_]+\/[0-9a-zA-Z_]+))+$/
         if (!rule.test(value)) {
           callback(new Error('Please enter the correct path'));
         } else {
@@ -164,7 +164,6 @@ export default {
       }
     },
     trans_directory(data){
-      console.log(data)
       return data.is_for_children?`${data.directory}/*`:data.directory
     },
     get_quota(){
@@ -172,7 +171,11 @@ export default {
       this.$axios.get(`${this.$globalConfig.dirPath}/quotas`).then((res)=>{
         this.table_loading = false
         res.data.get_quota_rules_response.quota_rules = res.data.get_quota_rules_response.quota_rules?res.data.get_quota_rules_response.quota_rules:[]
-        this.tableData = res.data.get_quota_rules_response.quota_rules
+        if(res.data.get_quota_rules_response.quota_rules.some((item)=>item.directory.includes(this.$route.query.path))){
+          this.tableData = res.data.get_quota_rules_response.quota_rules.filter((item)=>item.directory.includes(this.$route.query.path))
+        }else{
+          this.tableData = res.data.get_quota_rules_response.quota_rules
+        }
       }).catch((err)=>{
         console.log(err)
         this.tableData = []
@@ -180,6 +183,13 @@ export default {
       })
     },
     new_quota(type){
+      let state = false
+      if(type !== 'modify'){
+        this.$refs['quotaForm'].validate((valid) => {
+          state = valid
+        });
+      }
+      if(type !== 'modify' && !state) return
       this.confirm_loading = true
       let send = this.quotaForm
       let path = send.directory
@@ -187,7 +197,7 @@ export default {
         send = this.modifyForm
         path = this.current_quota.directory
       }
-      this.$axios.post(`${this.$globalConfig.dirPath}/quotas/${path}`,send).then(()=>{
+      this.$axios.post(`${this.$globalConfig.dirPath}/quotas/${this.$route.query.path}${path}`,send).then(()=>{
         this.get_quota()
         this.confirm_loading = false
         this.dialogVisible = false

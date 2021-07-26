@@ -32,8 +32,11 @@
 	transition: background-color 0.2s;
 	box-sizing: border-box;
 }
-.cloud-application-menu .cloud-application-menu-msg:hover{
-	background: rgba(0,0,0,0.04);
+.cloud-application-menu-msg{
+	transition: background 0.1s;
+}
+.cloud-application-menu-msg:hover{
+	background: rgb(165, 201, 255);
 	cursor: pointer;
 }
 .cloud-application-menu-msg{

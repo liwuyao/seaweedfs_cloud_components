@@ -63,7 +63,11 @@ export default defineComponent({
               {
                   index:`/${url}`,
                   name:'dashboard'
-              }
+              },
+              {
+                  index:`/${url}/quota`,
+                  name:'quota'
+              },
           ]
         }
     },

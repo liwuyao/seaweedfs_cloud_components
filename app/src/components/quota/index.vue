@@ -13,6 +13,7 @@
       <el-table
         :data="tableData"
         v-loading="table_loading"
+        element-loading-text="Loading"
         style="width: 100%">
         <el-table-column
           prop="directory"
@@ -68,6 +69,9 @@
         width="600px"
       >
       <el-form :model="modifyForm" :rules="rules" label-width="80px" class="demo-quotaForm">
+        <el-form-item label="directory">
+          <p style="font-size:16px;color:#409EFF;font-weight:700">{{current_quota.directory}}</p>
+        </el-form-item>
         <el-form-item label="size" prop="size">
           <el-input-number v-model="modifyForm.size" :min="1" :max="10" style="width:400px;margin-right:10px"></el-input-number>GB
         </el-form-item>
@@ -114,7 +118,8 @@ export default {
       modifyForm:{
         size:0
       },
-      current_quota:''
+      current_quota:'',
+      isCreate:false
     }
   },
   mounted(){
@@ -171,10 +176,21 @@ export default {
       this.$axios.get(`${this.$globalConfig.dirPath}/quotas`).then((res)=>{
         this.table_loading = false
         res.data.get_quota_rules_response.quota_rules = res.data.get_quota_rules_response.quota_rules?res.data.get_quota_rules_response.quota_rules:[]
-        if(res.data.get_quota_rules_response.quota_rules.some((item)=>item.directory.includes(this.$route.query.path))){
-          this.tableData = res.data.get_quota_rules_response.quota_rules.filter((item)=>item.directory.includes(this.$route.query.path))
-        }else{
-          this.tableData = res.data.get_quota_rules_response.quota_rules
+        this.tableData = res.data.get_quota_rules_response.quota_rules
+        if(this.$route.query.path && !this.isCreate){
+          if(this.tableData.some((item)=>item.directory === this.$route.query.path)){
+            this.current_quota = this.tableData.filter((item)=>item.directory === this.$route.query.path)[0]
+            this.modifyForm.size = this.current_quota.size
+            this.dialogVisible_modify = true
+          }else{
+            this.quotaForm = {
+              directory:this.$route.query.path,
+              size:0,
+              is_for_children:false
+            }
+            this.dialogVisible = true
+          }
+          this.isCreate = true
         }
       }).catch((err)=>{
         console.log(err)
@@ -197,7 +213,7 @@ export default {
         send = this.modifyForm
         path = this.current_quota.directory
       }
-      this.$axios.post(`${this.$globalConfig.dirPath}/quotas/${this.$route.query.path}${path}`,send).then(()=>{
+      this.$axios.post(`${this.$globalConfig.dirPath}/quotas/${path}`,send).then(()=>{
         this.get_quota()
         this.confirm_loading = false
         this.dialogVisible = false

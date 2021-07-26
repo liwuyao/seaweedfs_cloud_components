@@ -86,6 +86,14 @@
 const url = `/ui/${localStorage.clusterId}`
 export default {
   data(){
+      var validate_directory = (rule, value, callback) => {
+        rule =   /^(([0-9a-zA-Z_]+)|([0-9a-zA-Z_]+\/[0-9a-zA-Z_]+))+$/
+        if (!rule.test(value)) {
+          callback(new Error('Please enter the correct path'));
+        } else {
+          callback();
+        }
+      };
     return{
       default_url:url,
       tableData:[],
@@ -95,7 +103,11 @@ export default {
         size:0,
         is_for_children:false
       },
-      rules:{},
+      rules:{
+        directory:[
+          { validator: validate_directory, trigger: 'blur' }
+        ]
+      },
       confirm_loading:false,
       table_loading:false,
       dialogVisible_modify:false,
@@ -152,6 +164,7 @@ export default {
       }
     },
     trans_directory(data){
+      console.log(data)
       return data.is_for_children?`${data.directory}/*`:data.directory
     },
     get_quota(){
@@ -159,14 +172,7 @@ export default {
       this.$axios.get(`${this.$globalConfig.dirPath}/quotas`).then((res)=>{
         this.table_loading = false
         res.data.get_quota_rules_response.quota_rules = res.data.get_quota_rules_response.quota_rules?res.data.get_quota_rules_response.quota_rules:[]
-        let result = res.data.get_quota_rules_response.quota_rules.map((item)=>{
-          return {
-            directory:item.directory,
-            size:item.size,
-
-          }
-        })
-        this.tableData = result
+        this.tableData = res.data.get_quota_rules_response.quota_rules
       }).catch((err)=>{
         console.log(err)
         this.tableData = []

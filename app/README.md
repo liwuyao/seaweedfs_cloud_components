@@ -1,4 +1,4 @@
-# sw_app_vue
+# SeaweedCloudMonitoring
 
 ## Project setup
 ```

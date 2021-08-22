@@ -3,11 +3,13 @@
 ## Setup Agent to an existing SeaweedFS cluster
 
 ```
-docker run -ti chrislusf/seaweed_agent:latest swagent -filer <filerHost>:<filerPort>
+docker run -ti -e SEAWEED_PASSWORD=password chrislusf/seaweed_agent swagent -filer <filerHost>:<filerPort>
+
+docker run -ti chrislusf/seaweed_agent swagent -filer <filerHost>:<filerPort> -password=xyz
 
 Or use a specific version:
 
-docker run -ti chrislusf/seaweed_agent:v0.0.2 swagent -filer <filerHost>:<filerPort>
+docker run -ti -e SEAWEED_PASSWORD=password chrislusf/seaweed_agent:v0.0.3 swagent -filer <filerHost>:<filerPort>
 
 ```
 

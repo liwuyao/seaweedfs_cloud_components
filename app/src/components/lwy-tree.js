@@ -104,7 +104,7 @@ sugonTree.prototype.rendTree = function (list, hadRender) {
         iconStr = 'icon-xiala tree-rotate iconfont'
       }
       if(!item.menuState && item.loading){
-        iconStr = 'el-icon-loading'
+        iconStr = 'icon-loading iconfont loading-animation'
       }
       if(!item.menuState && !item.loading && !item.children){
         iconStr = 'icon-xiala iconfont'

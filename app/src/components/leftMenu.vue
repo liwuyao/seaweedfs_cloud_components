@@ -1,8 +1,5 @@
 <template>
-  <div style="width:200px">
-    <div class="app-title">
-        seaweedfs-cloud
-    </div>
+  <div style="width:200px;padding-top:30px">
     <el-menu class="el-menu-vertical-demo" :router="true" :unique-opened="true" :default-active="activeIndex" >
         <div v-for="(ite,index) of menus " :key="index">
           <el-submenu v-if="ite.children" :index="ite.index">

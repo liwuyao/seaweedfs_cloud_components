@@ -55,10 +55,10 @@
               <el-input-number v-model="quotaForm.size" :min="1" :max="10" style="width:350px;margin-right:10px"></el-input-number>
               <el-select v-model="size" style="width:70px">
               <el-option
-                  v-for="item in size_options"
-                  :key="item.val"
+                  v-for="(item,index) of size_options"
+                  :key="index"
                   :label="item.label"
-                  :value="item.val">
+                  :value="item.value">
                 </el-option>
               </el-select>
             </div>
@@ -88,10 +88,10 @@
             <el-input-number v-model="modifyForm.size" :min="1"  style="width:350px;margin-right:10px"></el-input-number>
             <el-select v-model="size" style="width:70px">
             <el-option
-                v-for="item in size_options"
-                :key="item.val"
+                v-for="(item,index) of size_options"
+                :key="index"
                 :label="item.label"
-                :value="item.val">
+                :value="item.value">
               </el-option>
             </el-select>
           </div>
@@ -150,15 +150,15 @@ export default {
       size_options:[
         {
           label:'TB',
-          val:'TB'
+          value:'TB'
         },
         {
           label:'GB',
-          val:'GB'
+          value:'GB'
         },
         {
           label:'MB',
-          val:'MB'
+          value:'MB'
         },
       ]
     }

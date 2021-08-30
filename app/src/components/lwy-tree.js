@@ -99,15 +99,15 @@ sugonTree.prototype.rendTree = function (list, hadRender) {
   function setTree(arr, source) {
     arr.forEach((item) => {
       const msgDom = [];
-      let iconStr = 'el-icon-caret-bottom'
+      let iconStr = 'icon-xiala iconfont'
       if(item.menuState && !item.loading){
-        iconStr = 'el-icon-caret-bottom tree-rotate'
+        iconStr = 'icon-xiala tree-rotate iconfont'
       }
       if(!item.menuState && item.loading){
         iconStr = 'el-icon-loading'
       }
       if(!item.menuState && !item.loading && !item.children){
-        iconStr = 'el-icon-caret-bottom'
+        iconStr = 'icon-xiala iconfont'
       }
       if(!item.menuState && !item.loading && item.children){
         if(!item.children.length){

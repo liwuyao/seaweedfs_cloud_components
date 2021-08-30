@@ -52,8 +52,8 @@
           </el-form-item>
           <el-form-item label="size" prop="size">
             <div style="display:flex">
-              <el-input-number v-model="quotaForm.size" :min="1" :max="10" style="width:350px;margin-right:10px"></el-input-number>
-              <el-select v-model="size" style="width:70px">
+              <el-input-number v-model="quotaForm.size" :min="1" :max="10" style="width:340px;margin-right:10px"></el-input-number>
+              <el-select v-model="size" style="width:80px">
                 <el-option
                     v-for="(item,index) of size_options"
                     :key="index"
@@ -63,12 +63,6 @@
                   </el-option>
               </el-select>
             </div>
-          </el-form-item>
-          <el-form-item>
-            <el-select v-model="size" placeholder="请选择">
-              <el-option label="GB"></el-option>
-              <el-option label="TB"></el-option>
-            </el-select>
           </el-form-item>
           <el-form-item label="apply to children" prop="is_for_children">
             <el-checkbox v-model="quotaForm.is_for_children"></el-checkbox>

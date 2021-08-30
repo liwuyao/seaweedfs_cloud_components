@@ -2,8 +2,8 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import './assets/icon/iconfont.css'
 import './assets/_menu.css'
-import ElementPlus from 'element-plus';
-import 'element-plus/lib/theme-chalk/index.css';
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
 import './assets/global.css'
 import Axios from './http/axios'
 import axios from 'axios'

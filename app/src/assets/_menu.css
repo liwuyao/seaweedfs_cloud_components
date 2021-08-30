@@ -36,7 +36,7 @@
 	transition: background 0.1s;
 }
 .cloud-application-menu-msg:hover{
-	background: rgb(165, 201, 255);
+	background: #f2f3f5;
 	cursor: pointer;
 }
 .cloud-application-menu-msg{
@@ -48,7 +48,7 @@
 .cloud-application-menu-box{
 	transition: all 0.4s; 
     overflow: hidden;
-    background: #f1f8ff;
+    background: #f7f8fa;
 }
 .cloud-active-menu{
 	background: #538ee6 !important;
@@ -150,5 +150,8 @@
 	/* border-right: 1px solid #eee; */
 	background: #FFF;
 	/* box-shadow: 2px 0 3px rgba(0,0,0,0.25); */
+}
+.el-icon-caret-bottom{
+	transform: rotate(-90deg);
 }
 

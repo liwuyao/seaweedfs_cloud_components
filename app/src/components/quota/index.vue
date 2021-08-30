@@ -1,4 +1,5 @@
 <template>
+<div>
   <app-container :bread="bread">
       <ul class="header-handle">
         <li>
@@ -28,7 +29,7 @@
           label="size"
         >
         <template #default="scope">
-          <span>{{scope.row.size}}GB</span>
+          <span>{{$filter.sizeToText(scope.row.size)}}</span>
         </template>
         </el-table-column>
         <el-table-column
@@ -50,7 +51,17 @@
             <el-input v-model="quotaForm.directory"></el-input>
           </el-form-item>
           <el-form-item label="size" prop="size">
-            <el-input-number v-model="quotaForm.size" :min="1" :max="10" style="width:400px;margin-right:10px"></el-input-number>GB
+            <div style="display:flex">
+              <el-input-number v-model="quotaForm.size" :min="1" :max="10" style="width:350px;margin-right:10px"></el-input-number>
+              <el-select v-model="size" style="width:70px">
+              <el-option
+                  v-for="item in size_options"
+                  :key="item.val"
+                  :label="item.label"
+                  :value="item.val">
+                </el-option>
+              </el-select>
+            </div>
           </el-form-item>
           <el-form-item label="apply to children" prop="is_for_children">
             <el-checkbox v-model="quotaForm.is_for_children"></el-checkbox>
@@ -73,7 +84,17 @@
           <p style="font-size:16px;color:#409EFF;font-weight:700">{{current_quota.directory}}</p>
         </el-form-item>
         <el-form-item label="size">
-          <el-input-number v-model="modifyForm.size" :min="1"  style="width:400px;margin-right:10px"></el-input-number>GB
+          <div style="display:flex">
+            <el-input-number v-model="modifyForm.size" :min="1"  style="width:350px;margin-right:10px"></el-input-number>
+            <el-select v-model="size" style="width:70px">
+            <el-option
+                v-for="item in size_options"
+                :key="item.val"
+                :label="item.label"
+                :value="item.val">
+              </el-option>
+            </el-select>
+          </div>
         </el-form-item>
         <el-form-item label="apply to children">
             <el-checkbox v-model="current_quota.is_for_children" :disabled="true"></el-checkbox>
@@ -87,6 +108,7 @@
         </template>
       </el-dialog>
   </app-container>
+</div>
 </template>
 
 <script>
@@ -124,6 +146,21 @@ export default {
       current_quota:'',
       isCreate:false,
       bread:[],
+      size:'GB',
+      size_options:[
+        {
+          label:'TB',
+          val:'TB'
+        },
+        {
+          label:'GB',
+          val:'GB'
+        },
+        {
+          label:'MB',
+          val:'MB'
+        },
+      ]
     }
   },
   created() {
@@ -164,6 +201,7 @@ export default {
         })
     },
     open_dialog(type,data){
+      this.size = 'GB'
       switch(type){
         case 'add':
           this.quotaForm = {
@@ -172,10 +210,13 @@ export default {
           is_for_children:false
         }
         this.dialogVisible = true
+        if(this.$refs['quotaForm']){
+          this.$refs['quotaForm'].resetFields()
+        }
         break
         case 'modify':
           this.current_quota = data
-          this.modifyForm.size = data.size
+          this.modifyForm.size = Math.floor(data.size/(1024*1024*1024))
           this.dialogVisible_modify = true
         break
       }
@@ -224,6 +265,17 @@ export default {
       if(type === 'modify'){
         send = this.modifyForm
         path = this.current_quota.directory
+      }
+      switch(this.size){
+        case 'GB':
+          send.size = send.size*1024*1024*1024
+        break
+        case 'TB':
+          send.size = send.size*1024*1024*1024*1024
+        break
+        case 'MB':
+           send.size = send.size*1024*1024
+        break
       }
       this.$axios.post(`${this.$globalConfig.dirPath}/quotas${path}`,send).then(()=>{
         this.get_quota()

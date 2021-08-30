@@ -99,15 +99,15 @@ sugonTree.prototype.rendTree = function (list, hadRender) {
   function setTree(arr, source) {
     arr.forEach((item) => {
       const msgDom = [];
-      let iconStr = 'icon-arrow-down-bold'
+      let iconStr = 'el-icon-caret-bottom'
       if(item.menuState && !item.loading){
-        iconStr = 'icon-arrow-down-bold tree-rotate'
+        iconStr = 'el-icon-caret-bottom tree-rotate'
       }
       if(!item.menuState && item.loading){
         iconStr = 'el-icon-loading'
       }
       if(!item.menuState && !item.loading && !item.children){
-        iconStr = 'icon-arrow-down-bold'
+        iconStr = 'el-icon-caret-bottom'
       }
       if(!item.menuState && !item.loading && item.children){
         if(!item.children.length){

@@ -54,14 +54,21 @@
             <div style="display:flex">
               <el-input-number v-model="quotaForm.size" :min="1" :max="10" style="width:350px;margin-right:10px"></el-input-number>
               <el-select v-model="size" style="width:70px">
-              <el-option
-                  v-for="(item,index) of size_options"
-                  :key="index"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
+                <el-option
+                    v-for="(item,index) of size_options"
+                    :key="index"
+                    :label="item.label"
+                    :value="item.value">
+                    {{item.label}}
+                  </el-option>
               </el-select>
             </div>
+          </el-form-item>
+          <el-form-item>
+            <el-select v-model="size" placeholder="请选择">
+              <el-option label="GB"></el-option>
+              <el-option label="TB"></el-option>
+            </el-select>
           </el-form-item>
           <el-form-item label="apply to children" prop="is_for_children">
             <el-checkbox v-model="quotaForm.is_for_children"></el-checkbox>
@@ -92,6 +99,7 @@
                 :key="index"
                 :label="item.label"
                 :value="item.value">
+                {{item.label}}
               </el-option>
             </el-select>
           </div>
@@ -233,7 +241,7 @@ export default {
         if(this.$route.query.path && !this.isCreate){
           if(this.tableData.some((item)=>item.directory === this.$route.query.path)){
             this.current_quota = this.tableData.filter((item)=>item.directory === this.$route.query.path)[0]
-            this.modifyForm.size = this.current_quota.size
+            this.modifyForm.size = Math.floor(this.current_quota.size/(1024*1024*1024))
             this.dialogVisible_modify = true
           }else{
             this.quotaForm = {

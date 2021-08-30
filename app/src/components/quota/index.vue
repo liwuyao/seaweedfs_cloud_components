@@ -64,12 +64,6 @@
               </el-select>
             </div>
           </el-form-item>
-          <el-form-item>
-            <el-select v-model="size" placeholder="请选择">
-              <el-option label="GB"></el-option>
-              <el-option label="TB"></el-option>
-            </el-select>
-          </el-form-item>
           <el-form-item label="apply to children" prop="is_for_children">
             <el-checkbox v-model="quotaForm.is_for_children"></el-checkbox>
           </el-form-item>

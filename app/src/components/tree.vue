@@ -149,7 +149,7 @@ export default defineComponent({
   transition: all 0.2s;
   height: 16px;
   width: 18px;
-  margin-top: 13px;
+  margin-top: 12px;
   cursor: pointer;
 }
 .tree-rotate {

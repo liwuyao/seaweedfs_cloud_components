@@ -1,10 +1,6 @@
 <template>
   <header class="app-top-header">
-      <!-- <el-input v-model="input" placeholder="search" size="mini" style="width:240px">
-        <template #append>
-          <el-button icon="el-icon-search"></el-button>
-        </template>
-      </el-input> -->
+      <img src="@/assets/cloud-icon.png" alt="" style="width:250px">
       <div class="head-portrait"> 
           <el-avatar :size="30" :src="circleUrl"></el-avatar>
           <span class="name-text">name</span>
@@ -31,10 +27,9 @@ export default defineComponent({
   align-items: center;
   height: 50px;
   padding: 0 18px;
-  color: white;
+  color: black;
   font-size: 18px;
-  background-color: red; /* 不支持线性的时候显示 */
-  background-image: linear-gradient(to right, #2680eb , #9dc7f8);
+  background: white;
   justify-content: space-between;
   box-sizing: border-box;
 }

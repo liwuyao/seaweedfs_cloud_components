@@ -1,10 +1,10 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import './assets/global.css'
 import './assets/icon/iconfont.css'
 import './assets/_menu.css'
 import ElementPlus from 'element-plus';
 import 'element-plus/lib/theme-chalk/index.css';
+import './assets/global.css'
 import Axios from './http/axios'
 import axios from 'axios'
 import router from './router/index.js'

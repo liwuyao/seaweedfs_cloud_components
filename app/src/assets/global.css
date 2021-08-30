@@ -10,3 +10,10 @@ html,body{
 #app{
   height: 100%;
 }
+.el-menu{
+  border-right:none;
+}
+.quota-button{
+  padding: 5px 12px;
+  
+}

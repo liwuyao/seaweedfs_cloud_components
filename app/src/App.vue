@@ -1,11 +1,11 @@
 <template>
   <div class="app-container">
-    <div class="menu">
-      <LeftMenu/>
-    </div>
+    <TopBar/>
     <div class="content">
-      <TopBar/>
-      <router-view></router-view>
+      <div class="menu">
+        <LeftMenu/>
+      </div>
+      <router-view style="width:calc(100% - 200px);" class="content-shadow"></router-view>
     </div>
     <el-dialog
       title="Login"
@@ -100,18 +100,23 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.content-shadow{
+  box-shadow: 0px 6px 5px -5px #999 inset,6px 0px 5px -5px #999 inset;
+  padding: 18px 10px 0 10px !important;
+  background: #f2f3f5;
+}
 .app-container{
   width: 100%;
   height: 100%;
-  display: flex;
 }
 .menu{
   height: 100%;
   width: 200px;
-  box-shadow: 6px 0px 5px -5px #999,-6px 0px 5px -5px #999;
 }
 .content{
   box-sizing: border-box;
-  width: calc(100% - 200px);
+  width: 100%;
+  height: 100%;
+  display: flex;
 }
 </style>

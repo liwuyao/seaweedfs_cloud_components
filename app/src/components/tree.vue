@@ -80,10 +80,22 @@ export default defineComponent({
                 },
                 children: [
                   {
+                    type: "span",
+                    attr: {
+                      innerText: `${item[_this.sizeKey]}`,
+                    },
+                  },
+                  {
+                    type: "span",
+                    attr: {
+                      innerText: `${item[_this.proportionKey]}`,
+                    },
+                  },
+                  {
                     type:'button',
                     attr:{
                       innerText:'quota',
-                      className:'quota-button'
+                      class:'quota-button'
                     },
                     event:[
                       {
@@ -96,18 +108,6 @@ export default defineComponent({
                         }
                       }
                     ]
-                  },
-                  {
-                    type: "span",
-                    attr: {
-                      innerText: `${item[_this.sizeKey]}`,
-                    },
-                  },
-                  {
-                    type: "span",
-                    attr: {
-                      innerText: `${item[_this.proportionKey]}`,
-                    },
                   },
                 ],
               },
@@ -124,6 +124,16 @@ export default defineComponent({
 </script>
 
 <style>
+.quota-button{
+  padding: 4px 14px;
+  background: none;
+  border: 1px solid gainsboro;
+  margin-left: 60px;
+  margin-right: 30px;
+}
+.quota-button:hover{
+  border-color: #2469f2;
+}
 #seaweedfs{
   width:100%
 }
@@ -143,7 +153,7 @@ export default defineComponent({
   cursor: pointer;
 }
 .tree-rotate {
-  transform: rotate(180deg);
+  transform: rotate(0deg);
 }
 .tree-msg-dom {
   display: flex;

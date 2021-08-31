@@ -59,11 +59,11 @@ export default defineComponent({
           menus:[
               {
                   index:`/${url}`,
-                  name:'dashboard'
+                  name:'Dashboard'
               },
               {
                   index:`/${url}/quota`,
-                  name:'quota'
+                  name:'Quota'
               },
           ]
         }

@@ -1,6 +1,6 @@
 <template>
   <div style="padding:0 5px">
-    <app-container :bread="[{name:'dashboard',path:'/'}]">
+    <app-container :bread="[{name:'Dashboard',path:'/'}]">
       <div v-loading="loading" class="tree-box" element-loading-text="Loading">
         <Tree ref="Tree" @choose="choose_tree" titleKey="title" sizeKey="size" proportionKey="proportion"/>
       </div>

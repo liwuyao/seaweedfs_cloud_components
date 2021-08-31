@@ -3,7 +3,7 @@
       <img src="@/assets/cloud-icon.png" alt="" style="width:250px">
       <div class="head-portrait"> 
           <el-avatar :size="30" :src="circleUrl"></el-avatar>
-          <span class="name-text">name</span>
+          <span class="name-text">Admin</span>
       </div>
   </header>
 </template>

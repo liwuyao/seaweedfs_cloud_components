@@ -52,7 +52,7 @@
           </el-form-item>
           <el-form-item label="size" prop="size">
             <div style="display:flex">
-              <el-input-number v-model="quotaForm.size" :min="1" :max="10" style="width:340px;margin-right:10px"></el-input-number>
+              <el-input-number v-model="quotaForm.size" :min="1" :max="10" style="width:350px;margin-right:10px"></el-input-number>
               <el-select v-model="size" style="width:80px">
                 <el-option
                     v-for="(item,index) of size_options"
@@ -86,8 +86,9 @@
         </el-form-item>
         <el-form-item label="size">
           <div style="display:flex">
+            
             <el-input-number v-model="modifyForm.size" :min="1"  style="width:350px;margin-right:10px"></el-input-number>
-            <el-select v-model="size" style="width:70px">
+            <el-select v-model="size" style="width:80px">
             <el-option
                 v-for="(item,index) of size_options"
                 :key="index"
@@ -218,7 +219,10 @@ export default {
         break
         case 'modify':
           this.current_quota = data
-          this.modifyForm.size = Math.floor(data.size/(1024*1024*1024))
+          var num = this.$filter.sizeToText(data.size)
+          var sizeArr = num.split(' ')
+          this.modifyForm.size = sizeArr[0]*1
+          this.size = sizeArr[1]
           this.dialogVisible_modify = true
         break
       }
@@ -235,7 +239,10 @@ export default {
         if(this.$route.query.path && !this.isCreate){
           if(this.tableData.some((item)=>item.directory === this.$route.query.path)){
             this.current_quota = this.tableData.filter((item)=>item.directory === this.$route.query.path)[0]
-            this.modifyForm.size = Math.floor(this.current_quota.size/(1024*1024*1024))
+            var num = this.$filter.sizeToText(this.current_quota.size)
+            var sizeArr = num.split(' ')
+            this.modifyForm.size = sizeArr[0]*1
+            this.size = sizeArr[1]
             this.dialogVisible_modify = true
           }else{
             this.quotaForm = {

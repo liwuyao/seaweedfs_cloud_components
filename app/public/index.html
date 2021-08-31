@@ -13,10 +13,10 @@
       let pathArr = url.split('/')
       let id = pathArr.filter((item)=>item.length === 32)[0]
       let rule = /^[A-Za-z0-9]+$/
-      console.log(id,'2222')
+      // console.log(id,'2222')
       if(id && rule.test(id)){
           localStorage.clusterId = id
-          console.log(id)
+          // console.log(id)
       }
     </script>
     <noscript>

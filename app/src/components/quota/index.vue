@@ -18,7 +18,7 @@
         style="width: 100%">
         <el-table-column
           prop="directory"
-          label="directory"
+          label="Directory"
         >
         <template #default="scope">
           <span>{{trans_directory(scope.row)}}</span>
@@ -26,7 +26,7 @@
         </el-table-column>
         <el-table-column
           prop="size"
-          label="size"
+          label="Size"
         >
         <template #default="scope">
           <span>{{$filter.sizeToText(scope.row.size)}}</span>
@@ -34,23 +34,23 @@
         </el-table-column>
         <el-table-column
           width="180"
-          label="handle">
+          label="">
           <template #default="scope">
-            <i class="el-icon-time el-icon-delete delete-btn" @click="delete_row(scope.row)" title="delete"></i>
-            <i class="el-icon-edit modify-btn" title="modify" @click="open_dialog('modify',scope.row)"></i>
+            <i class="el-icon-time el-icon-delete delete-btn" @click="delete_row(scope.row)" title="Delete"></i>
+            <i class="el-icon-edit modify-btn" title="Modify" @click="open_dialog('modify',scope.row)"></i>
           </template>
         </el-table-column>
       </el-table>
       <el-dialog
-        title="new quota"
+        title="New Quota"
         v-model="dialogVisible"
         width="600px"
         >
         <el-form :model="quotaForm" :rules="rules" ref="quotaForm" label-width="130px" class="demo-quotaForm">
-          <el-form-item label="directory" prop="directory">
+          <el-form-item label="Directory" prop="directory">
             <el-input v-model="quotaForm.directory"></el-input>
           </el-form-item>
-          <el-form-item label="size" prop="size">
+          <el-form-item label="Size" prop="size">
             <div style="display:flex">
               <el-input-number v-model="quotaForm.size" :min="1" :max="10" style="width:350px;margin-right:10px"></el-input-number>
               <el-select v-model="size" style="width:80px">
@@ -64,27 +64,27 @@
               </el-select>
             </div>
           </el-form-item>
-          <el-form-item label="apply to children" prop="is_for_children">
+          <el-form-item label="Apply to children" prop="is_for_children">
             <el-checkbox v-model="quotaForm.is_for_children"></el-checkbox>
           </el-form-item>
         </el-form>
         <template #footer>
           <span class="dialog-footer">
-            <el-button @click="dialogVisible = false">cancel</el-button>
-            <el-button type="primary" :loading="confirm_loading" @click="new_quota">confirm</el-button>
+            <el-button @click="dialogVisible = false">Cancel</el-button>
+            <el-button type="primary" :loading="confirm_loading" @click="new_quota">Confirm</el-button>
           </span>
         </template>
       </el-dialog>
       <el-dialog
-        title="modify quota"
+        title="Modify Quota"
         v-model="dialogVisible_modify"
         width="600px"
       >
       <el-form :model="modifyForm" :rules="rules" label-width="130px" class="demo-quotaForm">
-        <el-form-item label="directory">
+        <el-form-item label="Directory">
           <p style="font-size:16px;color:#409EFF;font-weight:700">{{current_quota.directory}}</p>
         </el-form-item>
-        <el-form-item label="size">
+        <el-form-item label="Size">
           <div style="display:flex">
             
             <el-input-number v-model="modifyForm.size" :min="1"  style="width:350px;margin-right:10px"></el-input-number>
@@ -99,14 +99,14 @@
             </el-select>
           </div>
         </el-form-item>
-        <el-form-item label="apply to children">
+        <el-form-item label="Apply to children">
             <el-checkbox v-model="current_quota.is_for_children" :disabled="true"></el-checkbox>
         </el-form-item>
       </el-form>
         <template #footer>
           <span class="dialog-footer">
-            <el-button @click="dialogVisible_modify = false">cancel</el-button>
-            <el-button type="primary" :loading="confirm_loading" @click="new_quota('modify')">confirm</el-button>
+            <el-button @click="dialogVisible_modify = false">Cancel</el-button>
+            <el-button type="primary" :loading="confirm_loading" @click="new_quota('modify')">Confirm</el-button>
           </span>
         </template>
       </el-dialog>
@@ -167,7 +167,7 @@ export default {
     }
   },
   created() {
-    this.bread = [{name:'dashboard',index:this.default_url},{name:'quota',index:''}]
+    this.bread = [{name:'Dashboard',index:this.default_url},{name:'Quota',index:''}]
     // if(this.$route.query.path){
     //   this.bread = [{name:'dashboard',index:this.default_url},{name:'quota',index:''}]
     // }else{
@@ -181,9 +181,9 @@ export default {
   },
   methods:{
     delete_row(data){
-       this.$confirm('Are you sure to delete?', 'delete quota', {
-          confirmButtonText: 'confirm',
-          cancelButtonText: 'cancel',
+       this.$confirm('Are you sure to delete?', 'Delete Quota', {
+          confirmButtonText: 'Confirm',
+          cancelButtonText: 'Cancel',
           type: 'warning'
         }).then(() => {
           this.$axios.delete(`${this.$globalConfig.dirPath}/quotas${data.directory}`).then(()=>{

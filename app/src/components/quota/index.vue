@@ -218,7 +218,10 @@ export default {
         break
         case 'modify':
           this.current_quota = data
-          this.modifyForm.size = Math.floor(data.size/(1024*1024*1024))
+          var num = this.$filter.sizeToText(data.size)
+          var sizeArr = num.split(' ')
+          this.modifyForm.size = sizeArr[0]*1
+          this.size = sizeArr[1]
           this.dialogVisible_modify = true
         break
       }
@@ -235,7 +238,10 @@ export default {
         if(this.$route.query.path && !this.isCreate){
           if(this.tableData.some((item)=>item.directory === this.$route.query.path)){
             this.current_quota = this.tableData.filter((item)=>item.directory === this.$route.query.path)[0]
-            this.modifyForm.size = Math.floor(this.current_quota.size/(1024*1024*1024))
+            var num = this.$filter.sizeToText(this.current_quota.size)
+            var sizeArr = num.split(' ')
+            this.modifyForm.size = sizeArr[0]*1
+            this.size = sizeArr[1]
             this.dialogVisible_modify = true
           }else{
             this.quotaForm = {

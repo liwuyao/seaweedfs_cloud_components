@@ -86,8 +86,7 @@
         </el-form-item>
         <el-form-item label="Size">
           <div style="display:flex">
-            
-            <el-input-number v-model="modifyForm.size" :min="1"  style="width:350px;margin-right:10px"></el-input-number>
+            <el-input-number v-model="modifyForm.size" :min="1"  style="width:340px;margin-right:10px"></el-input-number>
             <el-select v-model="size" style="width:80px">
             <el-option
                 v-for="(item,index) of size_options"

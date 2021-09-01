@@ -32,11 +32,11 @@ export default defineComponent({
       let _this = this
       let arr = []
       try{
-        for(let i in data.sizes){
+        for(let i in data.size_infos){
           let obj = {
             title:i,
             path:this.$globalConfig.dirPath+'/sizes'+(data.directory === '/'?'':data.directory) + '/' + i,
-            size:this.$filter.sizeToText(data.sizes[i]),
+            size:this.$filter.sizeToText(data.size_infos[i].size),
             proportion:Percentage(data.sizes[i]) + '%'
           }
           arr.push(obj)
@@ -69,12 +69,12 @@ export default defineComponent({
       let start_path = this.$globalConfig.dirPath+'/sizes'
       this.$axios.get(`${start_path}`).then((res)=>{
         this.loading = false
-        this.first_size = res.data.size_response.size
+        this.first_size = res.data.size_response.size_info.size
         let size_arr = this.transform_data(res.data.size_response)
         let start_obj = {
           title:'/',
           path:start_path,
-          size:this.$filter.sizeToText(res.data.size_response.size),
+          size:this.$filter.sizeToText(res.data.size_response.size_info.size),
           proportion:'100%',
           children:size_arr
         }

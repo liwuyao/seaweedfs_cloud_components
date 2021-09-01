@@ -89,4 +89,7 @@ export default defineComponent({
   color: white;
   font-size: 18px;
 }
+.el-menu-item.is-active{
+  background: #f2f3f5;
+}
 </style>

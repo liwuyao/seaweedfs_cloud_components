@@ -13,7 +13,7 @@ html,body{
 .el-menu{
   border-right:none;
 }
-.quota-button{
-  padding: 5px 12px;
-  
+.el-menu-item.is-active{
+  background: #2680eb;
+  color: white;
 }

@@ -166,7 +166,7 @@ export default {
     }
   },
   created() {
-    this.bread = [{name:'Dashboard',index:this.default_url},{name:'Quota',index:''}]
+    this.bread = [{name:'Quota',index:''}]
     // if(this.$route.query.path){
     //   this.bread = [{name:'dashboard',index:this.default_url},{name:'quota',index:''}]
     // }else{

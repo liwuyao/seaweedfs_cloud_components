@@ -2,6 +2,16 @@
   <div style="padding:0 5px">
     <app-container :bread="[{name:'Dashboard',path:'/'}]">
       <div v-loading="loading" class="tree-box" element-loading-text="Loading">
+          <nav class="tree-head">
+            <div class="left-content">directory</div>
+            <div class="right-content">
+                <div>size</div>
+                <div>Proportion</div>
+                <div>cached size</div>
+                <div>quota</div>
+                <div style="padding:0">handle</div>
+            </div>
+          </nav>
         <Tree ref="Tree" @choose="choose_tree" titleKey="title" sizeKey="size" proportionKey="proportion"/>
       </div>
     </app-container>
@@ -32,12 +42,17 @@ export default defineComponent({
       let _this = this
       let arr = []
       try{
-        for(let i in data.sizes){
+        for(let i in data.size_infos){
+          data.size_infos[i].cached_size = data.size_infos[i].cached_size?data.size_infos[i].cached_size:0
+          data.size_infos[i].quota = data.size_infos[i].quota?data.size_infos[i].quota:0
+          data.size_infos[i].size =data.size_infos[i].size?data.size_infos[i].size:0
           let obj = {
             title:i,
             path:this.$globalConfig.dirPath+'/sizes'+(data.directory === '/'?'':data.directory) + '/' + i,
-            size:this.$filter.sizeToText(data.sizes[i]),
-            proportion:Percentage(data.sizes[i]) + '%'
+            size:this.$filter.sizeToText(data.size_infos[i].size),
+            proportion:Percentage(data.size_infos[i].size) + '%',
+            cached_size:this.$filter.sizeToText(data.size_infos[i].cached_size),
+            quota:this.$filter.sizeToText(data.size_infos[i].quota)
           }
           arr.push(obj)
         }
@@ -74,7 +89,9 @@ export default defineComponent({
         let start_obj = {
           title:'/',
           path:start_path,
-          size:this.$filter.sizeToText(res.data.size_response.size),
+          size:this.$filter.sizeToText(res.data.size_response.size_info.size),
+          cached_size:this.$filter.sizeToText(res.data.size_response.size_info.cached_size),
+          quota:'--',
           proportion:'100%',
           children:size_arr
         }
@@ -123,6 +140,28 @@ export default defineComponent({
 </script>
 
 <style>
+.tree-head{
+  display: flex;
+  padding: 16px 0;
+  border-bottom:1px solid gainsboro;
+  justify-content: space-between;
+}
+.left-content{
+  flex: 1;
+  font-weight: 700;
+  color: #909399;
+}
+.right-content{
+  display: flex;
+}
+.right-content div{
+  width: 140px;
+  text-align: center;
+  box-sizing: border-box;
+  padding-right: 18px;
+  font-weight: 700;
+  color: #909399;
+}
 .tree-box{
   width: 100%;
   min-height: 300px;

@@ -5,11 +5,11 @@
           <nav class="tree-head">
             <div class="left-content">directory</div>
             <div class="right-content">
-                <div>size</div>
+                <div>Size</div>
                 <div>Proportion</div>
-                <div>cached size</div>
-                <div>quota</div>
-                <div style="padding:0">handle</div>
+                <div>Local Size</div>
+                <div>Quota</div>
+                <div style="padding:0"></div>
             </div>
           </nav>
         <Tree ref="Tree" @choose="choose_tree" titleKey="title" sizeKey="size" proportionKey="proportion"/>

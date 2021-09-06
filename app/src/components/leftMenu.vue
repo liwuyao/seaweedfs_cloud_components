@@ -68,6 +68,11 @@ export default defineComponent({
           ]
         }
     },
+    watch:{
+      '$route.path':function(a){
+        this.activeIndex = a
+      }
+    },
     created(){
       console.log(this.menus)
     }

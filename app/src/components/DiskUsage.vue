@@ -84,7 +84,7 @@ export default defineComponent({
       let start_path = this.$globalConfig.dirPath+'/sizes'
       this.$axios.get(`${start_path}`).then((res)=>{
         this.loading = false
-        this.first_size = res.data.size_response.size
+        this.first_size = res.data.size_response.size_info.size
         let size_arr = this.transform_data(res.data.size_response)
         let start_obj = {
           title:'/',

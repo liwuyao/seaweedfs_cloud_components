@@ -55,7 +55,7 @@ const url = `ui/${localStorage.clusterId}`
 export default defineComponent({
     data(){
         return{
-          activeIndex:'/',
+          activeIndex:`/${url}`,
           menus:[
               {
                   index:`/${url}`,

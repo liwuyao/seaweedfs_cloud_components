@@ -92,6 +92,18 @@ export default defineComponent({
                     },
                   },
                   {
+                    type: "span",
+                    attr: {
+                      innerText: item.cached_size,
+                    },
+                  },
+                  {
+                    type: "span",
+                    attr: {
+                      innerText: item.quota,
+                    },
+                  },
+                  {
                     type:'button',
                     attr:{
                       innerText:'quota',
@@ -141,7 +153,6 @@ export default defineComponent({
   width: 100%;
   display: flex;
   justify-content: center;
-  padding-top:20px;
 }
 .tree-caret {
   display: inline-block;
@@ -193,6 +204,6 @@ export default defineComponent({
 .seaweedfs-msg-describe span{
   display: inline-block;
   width: 140px;
-  text-align: right;
+  text-align: center;
 }
 </style>

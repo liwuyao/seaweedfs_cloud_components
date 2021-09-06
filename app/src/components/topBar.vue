@@ -2,23 +2,10 @@
   <header class="app-top-header">
       <img src="@/assets/cloud-icon.png" alt="" style="width:250px">
       <div class="head-portrait"> 
-          <el-avatar :size="30" :src="circleUrl"></el-avatar>
           <span class="name-text">Admin</span>
       </div>
   </header>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-export default defineComponent({
-  data(){
-    return{
-      input:'',
-      circleUrl: "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
-    }
-  }
-})
-</script>
 
 <style scoped>
 .app-top-header{

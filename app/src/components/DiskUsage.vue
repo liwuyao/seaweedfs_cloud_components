@@ -59,6 +59,9 @@ export default defineComponent({
             dir_count:data.size_infos[i].dir_count==0?'':data.size_infos[i].dir_count,
             file_count:data.size_infos[i].file_count==0?'':data.size_infos[i].file_count
           }
+          if (data.size_infos[i].dir_count==0) {
+            obj.children = []
+          }
           arr.push(obj)
         }
       }catch(err){

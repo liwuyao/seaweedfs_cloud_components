@@ -14,6 +14,5 @@ html,body{
   border-right:none;
 }
 .el-menu-item.is-active{
-  background: #2680eb;
-  color: white;
+  background: #f2f3f5;
 }

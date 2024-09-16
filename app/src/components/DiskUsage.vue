@@ -5,11 +5,12 @@
           <nav class="tree-head">
             <div class="left-content">directory</div>
             <div class="right-content">
-                <div>size</div>
-                <div>Proportion</div>
-                <div>cached size</div>
-                <div>quota</div>
-                <div style="padding:0">handle</div>
+              <div>Dir</div>
+              <div>File</div>
+              <div>Size</div>
+              <div>Ratio</div>
+              <div>Quota</div>
+              <div style="padding:0"></div>
             </div>
           </nav>
         <Tree ref="Tree" @choose="choose_tree" titleKey="title" sizeKey="size" proportionKey="proportion"/>
@@ -43,16 +44,23 @@ export default defineComponent({
       let arr = []
       try{
         for(let i in data.size_infos){
-          data.size_infos[i].cached_size = data.size_infos[i].cached_size?data.size_infos[i].cached_size:0
-          data.size_infos[i].quota = data.size_infos[i].quota?data.size_infos[i].quota:0
+          data.size_infos[i].dir_count =data.size_infos[i].dir_count?data.size_infos[i].dir_count:0
+          data.size_infos[i].file_count =data.size_infos[i].file_count?data.size_infos[i].file_count:0
           data.size_infos[i].size =data.size_infos[i].size?data.size_infos[i].size:0
+          data.size_infos[i].quota = data.size_infos[i].quota?data.size_infos[i].quota:0
+          data.size_infos[i].cached_size = data.size_infos[i].cached_size?data.size_infos[i].cached_size:0
           let obj = {
             title:i,
             path:this.$globalConfig.dirPath+'/sizes'+(data.directory === '/'?'':data.directory) + '/' + i,
             size:this.$filter.sizeToText(data.size_infos[i].size),
             proportion:Percentage(data.size_infos[i].size) + '%',
             cached_size:this.$filter.sizeToText(data.size_infos[i].cached_size),
-            quota:this.$filter.sizeToText(data.size_infos[i].quota)
+            quota:this.$filter.sizeToText(data.size_infos[i].quota),
+            dir_count:data.size_infos[i].dir_count==0?'':data.size_infos[i].dir_count,
+            file_count:data.size_infos[i].file_count==0?'':data.size_infos[i].file_count
+          }
+          if (data.size_infos[i].dir_count==0) {
+            obj.children = []
           }
           arr.push(obj)
         }
@@ -89,6 +97,8 @@ export default defineComponent({
         let start_obj = {
           title:'/',
           path:start_path,
+          dir_count:res.data.size_response.size_info.dir_count? res.data.size_response.size_info.dir_count:'',
+          file_count:res.data.size_response.size_info.file_count?res.data.size_response.size_info.file_count:'',
           size:this.$filter.sizeToText(res.data.size_response.size_info.size),
           cached_size:this.$filter.sizeToText(res.data.size_response.size_info.cached_size),
           quota:'--',

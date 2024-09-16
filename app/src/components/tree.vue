@@ -82,6 +82,18 @@ export default defineComponent({
                   {
                     type: "span",
                     attr: {
+                      innerText: item.dir_count,
+                    },
+                  },
+                  {
+                    type: "span",
+                    attr: {
+                      innerText: item.file_count,
+                    },
+                  },
+                  {
+                    type: "span",
+                    attr: {
                       innerText: `${item[_this.sizeKey]}`,
                     },
                   },
@@ -91,12 +103,12 @@ export default defineComponent({
                       innerText: `${item[_this.proportionKey]}`,
                     },
                   },
-                  {
-                    type: "span",
-                    attr: {
-                      innerText: item.cached_size,
-                    },
-                  },
+                  // {
+                  //   type: "span",
+                  //   attr: {
+                  //     innerText: item.cached_size,
+                  //   },
+                  // },
                   {
                     type: "span",
                     attr: {
